@@ -1,0 +1,1789 @@
+{
+  "formulas": [
+    {
+      "id": "f-accel",
+      "name": "Формула для визначення прискорення прямолінійного рівноприскореного руху",
+      "category": "Механіка",
+      "latex": "$$a = \\frac{v - v_0}{t}$$",
+      "symbols": "",
+      "description": "№1.12 ",
+      "vars": [
+        {
+          "sym": "$a$",
+          "text": "прискорення"
+        },
+        {
+          "sym": "$v$",
+          "text": "швидкіст"
+        },
+        {
+          "sym": "$v_0$",
+          "text": "початкова швидкість"
+        },
+        {
+          "sym": "$t$",
+          "text": "час"
+        }
+      ],
+      "resVar": "a",
+      "unit": "м/с²",
+      "mathExpr": "(v - v0) / t",
+      "substTemplate": "\\frac{v - v_0}{t}"
+    },
+    {
+      "id": "f-1793117008906",
+      "name": "Формула для визначення шляху (переміщення) прямолінійного рівноприскореного руху",
+      "category": "Механіка",
+      "latex": "$$S=v_0t+\\frac{at^2}{2}$$",
+      "symbols": "",
+      "description": "№1.12",
+      "vars": [
+        {
+          "sym": "$S$",
+          "text": "Шлях"
+        },
+        {
+          "sym": "$v$",
+          "text": "швидкість"
+        },
+        {
+          "sym": "$a$",
+          "text": "Прискорення"
+        },
+        {
+          "sym": "$t$",
+          "text": "час"
+        }
+      ],
+      "resVar": "S",
+      "unit": "м",
+      "mathExpr": "v0 * t + (a * t * t) / 2",
+      "substTemplate": "v_0 \\cdot t + \\frac{a \\cdot t^2}{2}"
+    },
+    {
+      "id": "f-1793118393748",
+      "name": "Дальність польоту тіла, кинутого під кутом до горизонту",
+      "category": "Механіка",
+      "latex": "$S = \\frac{v_0^2 \\cdot \\sin(2\\alpha)}{g}$",
+      "symbols": "",
+      "description": "№1.78",
+      "vars": [
+        {
+          "sym": "$S$",
+          "text": "дальність польоту"
+        },
+        {
+          "sym": "$v_0$",
+          "text": "початкова швидкість"
+        },
+        {
+          "sym": "$\\alpha$",
+          "text": "кут кидання"
+        },
+        {
+          "sym": "$g$",
+          "text": "прискорення вільного падіння"
+        }
+      ],
+      "resVar": "S",
+      "unit": "м",
+      "mathExpr": "Math.round(((v0 * v0 * Math.sin(2 * alpha * Math.PI / 180)) / g) * 10) / 10",
+      "substTemplate": "\\frac{v_0^2 \\cdot \\sin(2 \\cdot alpha^\\circ)}{g}"
+    },
+    {
+      "id": "f-1793119410864",
+      "name": "ФОРМУЛА ДЛЯ ВИЗНАЧЕННЯ ДАЛЬНОСТІ ПОЛЬОТУ ТІЛА, КИНУТОГО ГОРИЗОНТАЛЬНО",
+      "category": "Механіка",
+      "latex": "$S = v_0 \\sqrt{\\frac{2h}{g}}$",
+      "symbols": "",
+      "description": "№1.78",
+      "vars": [
+        {
+          "sym": "$S$",
+          "text": "дальність польоту"
+        },
+        {
+          "sym": "$v_0$",
+          "text": "початкова швидкість"
+        },
+        {
+          "sym": "$h$",
+          "text": "початкова висота кидання"
+        },
+        {
+          "sym": "$g$",
+          "text": "прискорення вільного падіння"
+        }
+      ]
+    },
+    {
+      "id": "f-1793135158146",
+      "name": "Рівняння кутової швидкості при рівносповільненому обертанні",
+      "category": "Механіка",
+      "latex": "$\\omega = \\omega_0+\\varepsilon t$",
+      "symbols": "",
+      "description": "№1.91",
+      "vars": [
+        {
+          "sym": "$\\omega$",
+          "text": "кінцева кутова швидкість"
+        },
+        {
+          "sym": "$\\omega_0$",
+          "text": "початкова кутова швидкість"
+        },
+        {
+          "sym": "$\\varepsilon$",
+          "text": "кутове прискорення сповільнення"
+        },
+        {
+          "sym": "$t$",
+          "text": "час руху до повної зупинки"
+        }
+      ]
+    },
+    {
+      "id": "f-1793136274383",
+      "name": "Формула для визначення кута повороту при рівносповільненому русі",
+      "category": "Механіка",
+      "latex": "$\\varphi = \\varphi_0 + \\omega_0 t + \\frac{\\varepsilon t^2}{2}$",
+      "symbols": "",
+      "description": "",
+      "vars": [
+        {
+          "sym": "$\\varphi$",
+          "text": "кут повороту тіла"
+        },
+        {
+          "sym": "$\\varphi_0$",
+          "text": "початковий кут повороту в момент $t$"
+        },
+        {
+          "sym": "$\\omega_0$",
+          "text": "початкова кутова швидкість"
+        },
+        {
+          "sym": "$t$",
+          "text": "час гальмування"
+        },
+        {
+          "sym": "$\\varepsilon$",
+          "text": "кутове прискорення сповільнення"
+        }
+      ],
+      "resVar": "\\varphi",
+      "unit": "рад",
+      "mathExpr": "Math.round((phi0 + w0 * t + (eps * t * t) / 2) * 100) / 100",
+      "substTemplate": "phi0 + w_0 \\cdot t + \\frac{eps \\cdot t^2}{2}"
+    },
+    {
+      "id": "f-1793190181480",
+      "name": "Формула для визначення частоти обертання",
+      "category": "Механіка",
+      "latex": "$n = \\frac{N}{t} = \\frac{\\omega}{2\\pi}$",
+      "symbols": "",
+      "description": "",
+      "vars": [
+        {
+          "sym": "$n$",
+          "text": "частота обертання"
+        },
+        {
+          "sym": "$N$",
+          "text": "кількість обертів"
+        },
+        {
+          "sym": "$t$",
+          "text": "час обертання"
+        },
+        {
+          "sym": "$\\omega$",
+          "text": "кутова швидкість"
+        },
+        {
+          "sym": "$2\\pi$",
+          "text": "кут одного повного оберту"
+        }
+      ]
+    },
+    {
+      "id": "f-1793190498755",
+      "name": "ФОРМУЛА ДЛЯ ВИЗНАЧЕННЯ КІЛЬКОСТІ ОБЕРТІВ",
+      "category": "Механіка",
+      "latex": "$N = \\frac{\\varphi}{2\\pi}$",
+      "symbols": "",
+      "description": "",
+      "vars": [
+        {
+          "sym": "$N$",
+          "text": "кількість обертів"
+        },
+        {
+          "sym": "$\\varphi$",
+          "text": "повний кут повороту"
+        },
+        {
+          "sym": "$2\\pi$",
+          "text": "кут одного повного оберту"
+        }
+      ],
+      "resVar": "N",
+      "unit": "об",
+      "mathExpr": "Math.round(phi / (2 * 3.14))",
+      "substTemplate": "\\frac{phi}{2 \\cdot 3.14}"
+    },
+    {
+      "id": "f-1793193699213",
+      "name": "ЗАКОН ЗБЕРЕЖЕННЯ І ПЕРЕТВОРЕННЯ ЕНЕРГІЇ",
+      "category": "Механіка",
+      "latex": "$Q=E_1-E_2$",
+      "symbols": "",
+      "description": "",
+      "vars": [
+        {
+          "sym": "$Q$",
+          "text": "кількість теплоти"
+        },
+        {
+          "sym": "$E_1$",
+          "text": "повна механічна енергія на вершині схилу"
+        },
+        {
+          "sym": "$E_2$",
+          "text": "повна механічна енергія біля основи схилу."
+        }
+      ]
+    },
+    {
+      "id": "f-1793194073074",
+      "name": "ПОВНА МЕХАНІЧНА ЕНЕРГІЯ ТІЛА НА ВЕРШИНІ",
+      "category": "Механіка",
+      "latex": "$E_1=K_1+W_1$",
+      "symbols": "",
+      "description": "",
+      "vars": [
+        {
+          "sym": "$E_1$",
+          "text": "повна механічна енергія на вершині схилу"
+        },
+        {
+          "sym": "$K_1$",
+          "text": "Кінетична енергія"
+        },
+        {
+          "sym": "$W_1$",
+          "text": "Потенціальна енергія"
+        }
+      ]
+    },
+    {
+      "id": "f-1793199768886",
+      "name": "Шлях за 10 секунду",
+      "category": "Механіка",
+      "latex": "$S_{10}=\\frac{at^2_2}{2}-\\frac{at^2_1}{2}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "S_{10}",
+      "unit": "м",
+      "mathExpr": "(a * t2 * t2) / 2 - (a * t1 * t1) / 2",
+      "substTemplate": "\\frac{a \\cdot t_2^2}{2} - \\frac{a \\cdot t_1^2}{2}",
+      "vars": []
+    },
+    {
+      "id": "f-1793200978864",
+      "name": "Формула для визначення висоти, з якої кинуто тіло горизонтально",
+      "category": "Механіка",
+      "latex": "$h=\\frac{S^2 \\cdot g}{2 \\cdot v_0^2}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "h",
+      "unit": "м",
+      "mathExpr": "Math.round(((S * S * g) / (2 * v0 * v0)) * 100) / 100",
+      "substTemplate": "\\frac{S^2 \\cdot g}{2 \\cdot v_0^2}",
+      "vars": []
+    },
+    {
+      "id": "f-1793201698718",
+      "name": "Формула для визначення часу до повної зупинки (гальмування)",
+      "category": "Механіка",
+      "latex": "$t = \\frac{\\omega_0}{\\varepsilon}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "t",
+      "unit": "с",
+      "mathExpr": "Math.round((w0 / eps) * 100) / 100",
+      "substTemplate": "\\frac{w_0}{eps}",
+      "vars": []
+    },
+    {
+      "id": "f-1793203558089",
+      "name": "Потенціальна енергія",
+      "category": "Механіка",
+      "latex": "$E_p = mgh$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E_p",
+      "unit": "Дж",
+      "mathExpr": "Math.round((m * g * h) * 100) / 100",
+      "substTemplate": "m \\cdot g \\cdot h",
+      "vars": []
+    },
+    {
+      "id": "f-1793203756613",
+      "name": "Кінетична енергія",
+      "category": "Механіка",
+      "latex": "$E_k = \\frac{mv^2}{2}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E_k",
+      "unit": "Дж",
+      "mathExpr": "Math.round(((m * v * v) / 2) * 100) / 100",
+      "substTemplate": "\\frac{m \\cdot v^2}{2}",
+      "vars": []
+    },
+    {
+      "id": "f-1793203966736",
+      "name": "Кількість теплоти, що виділилася внаслідок опору (тертя)",
+      "category": "Механіка",
+      "latex": "$Q = E_p - E_k$",
+      "symbols": "",
+      "description": "",
+      "resVar": "Q",
+      "unit": "Дж",
+      "mathExpr": "Math.round((Ep - Ek) * 100) / 100",
+      "substTemplate": "E_p - E_k",
+      "vars": []
+    },
+    {
+      "id": "f-1793204222835",
+      "name": "Коефіцієнт тертя на похилій площині (через теплоту)",
+      "category": "Механіка",
+      "latex": "$\\mu = \\frac{Q}{mg \\cos\\alpha \\cdot l}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\mu",
+      "unit": "",
+      "mathExpr": "Math.round((Q / (m * g * Math.cos(alpha * Math.PI / 180) * l)) * 100) / 100",
+      "substTemplate": "\\frac{Q}{m \\cdot g \\cdot \\cos(alpha^\\circ) \\cdot l}",
+      "vars": []
+    },
+    {
+      "id": "f-1793205025229",
+      "name": "Швидкість після непружного зіткнення",
+      "category": "Механіка",
+      "latex": "$u = \\frac{|m_1 v_1 - m_2 v_2|}{m_1 + m_2}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "u",
+      "unit": "м/с",
+      "mathExpr": "Math.round((Math.abs(m1 * v1 - m2 * v2) / (m1 + m2)) * 100) / 100",
+      "substTemplate": "\\frac{|m_1 \\cdot v_1 - m_2 \\cdot v_2|}{m_1 + m_2}",
+      "vars": []
+    },
+    {
+      "id": "f-1793205364639",
+      "name": "Час гальмування під дією сили тертя",
+      "category": "Механіка",
+      "latex": "$$t = \\frac{u}{\\mu g}$$",
+      "symbols": "",
+      "description": "",
+      "resVar": "t",
+      "unit": "с",
+      "mathExpr": "Math.round((u / (mu * g)) * 100) / 100",
+      "substTemplate": "\\frac{u}{mu \\cdot g}",
+      "vars": []
+    },
+    {
+      "id": "f-1793205953054",
+      "name": "Висота підйому першої кулі після пружного удару",
+      "category": "Механіка",
+      "latex": "$h'_1 = \\left(\\frac{m_1 - m_2}{m_1 + m_2}\\right)^2 \\cdot h_1$",
+      "symbols": "",
+      "description": "",
+      "resVar": "h'_1",
+      "unit": "м",
+      "mathExpr": "Math.round(((((m1 - m2) / (m1 + m2)) ** 2) * h1) * 1000) / 1000",
+      "substTemplate": "\\left(\\frac{m_1 - m_2}{m_1 + m_2}\\right)^2 \\cdot h_1",
+      "vars": []
+    },
+    {
+      "id": "f-1793206140581",
+      "name": "Висота підйому другої кулі після пружного удару",
+      "category": "Механіка",
+      "latex": "$h'_2 = \\left(\\frac{2m_1}{m_1 + m_2}\\right)^2 \\cdot h_1$",
+      "symbols": "",
+      "description": "",
+      "resVar": "h'_2",
+      "unit": "м",
+      "mathExpr": "Math.round(((((2 * m1) / (m1 + m2)) ** 2) * h1) * 1000) / 1000",
+      "substTemplate": "\\left(\\frac{2 \\cdot m_1}{m_1 + m_2}\\right)^2 \\cdot h_1",
+      "vars": []
+    },
+    {
+      "id": "f-1793206345367",
+      "name": "Висота підйому куль після непружного удару",
+      "category": "Механіка",
+      "latex": "$h'' = \\left(\\frac{m_1}{m_1 + m_2}\\right)^2 \\cdot h_1$",
+      "symbols": "",
+      "description": "",
+      "resVar": "h''",
+      "unit": "м",
+      "mathExpr": "Math.round((((m1 / (m1 + m2)) ** 2) * h1) * 1000) / 1000",
+      "substTemplate": "\\left(\\frac{m_1}{m_1 + m_2}\\right)^2 \\cdot h_1",
+      "vars": []
+    },
+    {
+      "id": "f-1793207183952",
+      "name": "Глибина занурення тіла (висота зануреної частини)",
+      "category": "Механіка",
+      "latex": "$$h_{\\text{зан}} = \\frac{m}{\\rho S}$$",
+      "symbols": "",
+      "description": "",
+      "resVar": "h_{\\text{зан}}",
+      "unit": "м",
+      "mathExpr": "Math.round((m / (rho * S)) * 100) / 100",
+      "substTemplate": "\\frac{m}{rho \\cdot S}",
+      "vars": []
+    },
+    {
+      "id": "f-1793207376505",
+      "name": "Висота надводної частини плаваючого тіла",
+      "category": "Механіка",
+      "latex": "$$h = H - h_{\\text{зан}}$$",
+      "symbols": "",
+      "description": "",
+      "resVar": "h",
+      "unit": "м",
+      "mathExpr": "Math.round((H - h_zan) * 100) / 100",
+      "substTemplate": "H - h_zan",
+      "vars": []
+    },
+    {
+      "id": "f-1793207828780",
+      "name": "Сила тяги під кутом до горизонту (рівномірний рух)",
+      "category": "Механіка",
+      "latex": "$F = \\frac{kMg}{\\cos\\alpha + k\\sin\\alpha}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "F",
+      "unit": "Н",
+      "mathExpr": "Math.round(((k * M * g) / (Math.cos(alpha * Math.PI / 180) + k * Math.sin(alpha * Math.PI / 180))) * 10) / 10",
+      "substTemplate": "\\frac{k \\cdot M \\cdot g}{\\cos(alpha^\\circ) + k \\cdot \\sin(alpha^\\circ)}",
+      "vars": []
+    },
+    {
+      "id": "f-1793208223328",
+      "name": "Умова рівноваги моментів сил для зігнутого прута",
+      "category": "Механіка",
+      "latex": "$mg \\cdot \\frac{L}{2} \\sin\\alpha + mg \\cdot L \\sin\\alpha = mg \\cdot \\frac{L}{2} \\cos\\alpha$",
+      "symbols": "",
+      "description": "",
+      "resVar": "",
+      "unit": "",
+      "mathExpr": "",
+      "substTemplate": "",
+      "vars": []
+    },
+    {
+      "id": "f-1793208313481",
+      "name": "Кут рівноваги зігнутого прута",
+      "category": "Механіка",
+      "latex": "$\\alpha = \\arctan\\left(\\frac{1}{3}\\right)$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\alpha",
+      "unit": "°",
+      "mathExpr": "Math.round((Math.atan(1 / k) * 180 / Math.PI) * 10) / 10",
+      "substTemplate": "\\arctan\\left(\\frac{1}{k}\\right)",
+      "vars": []
+    },
+    {
+      "id": "f-1793209259706",
+      "name": "Маса газу (рівняння Менделєєва — Клапейрона)",
+      "category": "Молекулярна фізика",
+      "latex": "$$m = \\frac{p \\cdot V \\cdot M}{R \\cdot T}$$",
+      "symbols": "",
+      "description": "",
+      "resVar": "m",
+      "unit": "кг",
+      "mathExpr": "Math.round(((p * V * M) / (R * T)) * 1000) / 1000",
+      "substTemplate": "\\frac{p \\cdot V \\cdot M}{R \\cdot T}",
+      "vars": []
+    },
+    {
+      "id": "f-1793209724240",
+      "name": "Закон Гей-Люссака (відношення об'ємів при ізобарному процесі)",
+      "category": "",
+      "latex": "$\\frac{V_2}{V_1} = \\frac{T_2}{T_1}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\frac{V_2}{V_1}",
+      "unit": "",
+      "mathExpr": "Math.round((T2 / T1) * 100) / 100",
+      "substTemplate": "\\frac{T_2}{T_1}",
+      "vars": []
+    },
+    {
+      "id": "f-1793210177886",
+      "name": "Сумарна кінетична енергія молекул газу",
+      "category": "Молекулярна фізика",
+      "latex": "$E_{\\text{к}} = \\frac{3}{2} p V$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E_{\\text{к}}",
+      "unit": "Дж",
+      "mathExpr": "Math.round(1.5 * p * V)",
+      "substTemplate": "\\frac{3}{2} \\cdot p \\cdot V",
+      "vars": []
+    },
+    {
+      "id": "f-1793210641454",
+      "name": "Внутрішня енергія двоатомного газу (початкова)",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "latex": "$U_1 = \\frac{5}{2} \\frac{m}{M} R T_1$",
+      "symbols": "",
+      "description": "",
+      "resVar": "U_1",
+      "unit": "Дж",
+      "mathExpr": "Math.round((5 / 2) * (m / M) * R * T1)",
+      "substTemplate": "\\frac{5}{2} \\cdot \\frac{m}{M} \\cdot R \\cdot T_1",
+      "vars": []
+    },
+    {
+      "id": "f-1793211092214",
+      "name": "Внутрішня енергія двоатомного газу через тиск і об'єм",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "latex": "$U_2 = \\frac{5}{2} p V_2$",
+      "symbols": "",
+      "description": "",
+      "resVar": "U_2",
+      "unit": "Дж",
+      "mathExpr": "Math.round(2.5 * p * V2)",
+      "substTemplate": "\\frac{5}{2} \\cdot p \\cdot V_2",
+      "vars": []
+    },
+    {
+      "id": "f-1793211363155",
+      "name": "Кількість теплоти при ізобарному процесі (двоатомний газ)",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "latex": "$Q = \\frac{7}{2} p V_2$",
+      "symbols": "",
+      "description": "",
+      "resVar": "Q",
+      "unit": "Дж",
+      "mathExpr": "Math.round(3.5 * p * V2)",
+      "substTemplate": "\\frac{7}{2} \\cdot p \\cdot V_2",
+      "vars": []
+    },
+    {
+      "id": "f-1793212473404",
+      "name": "Температура холодильника в циклі Карно",
+      "category": "Молекулярна фізика",
+      "latex": "$T_2 = T_1 \\cdot \\left(1 - \\frac{A}{Q_1}\\right)$",
+      "symbols": "",
+      "description": "",
+      "resVar": "T_2",
+      "unit": "К",
+      "mathExpr": "Math.round(T1 * (1 - A / Q1))",
+      "substTemplate": "T_1 \\cdot \\left(1 - \\frac{A}{Q_1}\\right)",
+      "vars": []
+    },
+    {
+      "id": "f-1793213015625",
+      "name": "Маса замороженої води в холодильній машині (цикл Карно)",
+      "category": "Молекулярна фізика",
+      "latex": "$m_2 = \\frac{r \\cdot m_1 \\cdot T_2}{\\lambda \\cdot T_1}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "m_2",
+      "unit": "кг",
+      "mathExpr": "Math.round(((r * m1 * T2) / (lam * T1)) * 100) / 100",
+      "substTemplate": "\\frac{r \\cdot m_1 \\cdot T_2}{lam \\cdot T_1}",
+      "vars": []
+    },
+    {
+      "id": "f-1793278993202",
+      "name": "Середній час трьох спусків",
+      "category": "Механіка",
+      "latex": "$\\langle t \\rangle = \\frac{t_1 + t_2 + t_3}{3}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle t \\rangle",
+      "unit": "с",
+      "mathExpr": "Math.round(((t1 + t2 + t3) / 3) * 100) / 100",
+      "substTemplate": "\\frac{t_1 + t_2 + t_3}{3}",
+      "vars": [
+        {
+          "sym": "$t_1",
+          "text": ""
+        },
+        {
+          "sym": "t_2",
+          "text": ""
+        },
+        {
+          "sym": "t_3$",
+          "text": "час окремих вимірів (с)"
+        },
+        {
+          "sym": "$\\langle t \\rangle$",
+          "text": "середній час (с)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793279828867",
+      "name": "Кутове прискорення (маятник Обербека)",
+      "category": "Механіка",
+      "latex": "$\\varepsilon = \\frac{2h}{\\langle t \\rangle^2 r_{шк}}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\varepsilon",
+      "unit": "1/с²",
+      "mathExpr": "+((2 * h) / (t**2 * r)).toFixed(2)",
+      "substTemplate": "\\frac{2 \\cdot h}{t^2 \\cdot r}",
+      "vars": [
+        {
+          "sym": "$\\varepsilon$",
+          "text": "кутове прискорення (1/с²)"
+        },
+        {
+          "sym": "$h$",
+          "text": "висота падіння (м)"
+        },
+        {
+          "sym": "$\\langle t \\rangle$",
+          "text": "середній час (с)"
+        },
+        {
+          "sym": "$r_{шк}$",
+          "text": "радіус шківа (м)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793280995977",
+      "name": "Обертовий момент (маятник Обербека)",
+      "category": "Механіка",
+      "latex": "$M = m\\left(g - \\frac{2h}{t^2}\\right)r_{шк}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "M",
+      "unit": "Н·м",
+      "mathExpr": "+(m * (g - (2 * h) / (t**2)) * r).toFixed(3)",
+      "substTemplate": "m \\left(g - \\frac{2 \\cdot h}{t^2}\\right) \\cdot r",
+      "vars": [
+        {
+          "sym": "$M$",
+          "text": "момент сили (Н·м)"
+        },
+        {
+          "sym": "$m$",
+          "text": "маса (кг)"
+        },
+        {
+          "sym": "$g$",
+          "text": "9.8 м/с²"
+        },
+        {
+          "sym": "$h$",
+          "text": "висота (м)"
+        },
+        {
+          "sym": "$t$",
+          "text": "час (с)"
+        },
+        {
+          "sym": "$r_{шк}$",
+          "text": "радіус (м)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793282017820",
+      "name": "Момент інерції (основний закон динаміки)",
+      "category": "Механіка",
+      "latex": "$I = \\frac{M}{\\epsilon}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "I",
+      "unit": "кг·м²",
+      "mathExpr": "+(M / eps).toFixed(3)",
+      "substTemplate": "\\frac{M}{eps}",
+      "vars": [
+        {
+          "sym": "$M$",
+          "text": "обертовий момент (Н·м)"
+        },
+        {
+          "sym": "$\\varepsilon$",
+          "text": "кутове прискорення (1/с²)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793283582045",
+      "name": "Абсолютна похибка моменту інерції",
+      "category": "Механіка",
+      "latex": "$\\Delta I = | I - \\langle I \\rangle |$",
+      "symbols": "",
+      "description": "",
+      "resVar": "ΔI",
+      "unit": "кг·м²",
+      "mathExpr": "+Math.abs(I - avgI).toFixed(3)",
+      "substTemplate": "| I - avgI |",
+      "vars": [
+        {
+          "sym": "$I$",
+          "text": "момент інерції (кг·м²)"
+        },
+        {
+          "sym": "$\\langle I \\rangle$",
+          "text": "середній момент інерції (кг·м²)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793350068825",
+      "name": "Відносна похибка моменту інерції",
+      "category": "Механіка",
+      "latex": "$E = \\frac{\\Delta I}{\\langle I \\rangle} \\cdot 100\\%$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E",
+      "unit": "%",
+      "mathExpr": "+((dI / avgI) * 100).toFixed(1)",
+      "substTemplate": "\\frac{dI}{avgI} \\cdot 100\\%",
+      "vars": [
+        {
+          "sym": "$\\Delta I$",
+          "text": "абсолютна похибка (кг·м²)"
+        },
+        {
+          "sym": "$\\langle I \\rangle$",
+          "text": "середній момент інерції (кг·м²)"
+        },
+        {
+          "sym": "$E$",
+          "text": "відносна похибка (%)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793353402495",
+      "name": "Абсолютна похибка моменту сили",
+      "category": "Механіка",
+      "latex": "$\\Delta M = |M - \\langle M \\rangle|$",
+      "symbols": "",
+      "description": "",
+      "resVar": "ΔM",
+      "unit": "Н·м",
+      "mathExpr": "+Math.abs(M - avgM).toFixed(3)",
+      "substTemplate": "| M - avgM |",
+      "vars": [
+        {
+          "sym": "$M$",
+          "text": "обертовий момент (Н·м)"
+        },
+        {
+          "sym": "$\\langle M \\rangle$",
+          "text": "середній момент (Н·м)"
+        },
+        {
+          "sym": "$\\Delta M$",
+          "text": "абсолютна похибка (Н·м)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793353735000",
+      "name": "Відносна похибка моменту сили (Таблиця 2)",
+      "category": "Механіка",
+      "latex": "$E = \\frac{\\Delta M}{\\langle M \\rangle} \\cdot 100\\%$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E",
+      "unit": "%",
+      "mathExpr": "+((dM / avgM) * 100).toFixed(1)",
+      "substTemplate": "\\frac{dM}{avgM} \\cdot 100\\%",
+      "vars": [
+        {
+          "sym": "$\\Delta M$",
+          "text": "абсолютна похибка (Н·м)"
+        },
+        {
+          "sym": "$\\langle M \\rangle$",
+          "text": "середній момент (Н·м)"
+        },
+        {
+          "sym": "$E$",
+          "text": "відносна похибка (%)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793355983382",
+      "name": "Визначення в'язкості рідини методом Стокса",
+      "category": "Молекулярна фізика",
+      "latex": "$\\eta = \\frac{2}{9}(\\rho_к - \\rho_р)\\frac{g t r^2}{l}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\eta",
+      "unit": "Па·с",
+      "mathExpr": "+((2 / 9) * (rhok - rhop) * (g * t * (r**2)) / l).toFixed(2)",
+      "substTemplate": "\\frac{2}{9}(rhok - rhop)\\frac{g \\cdot t \\cdot r^2}{l}",
+      "vars": [
+        {
+          "sym": "$\\eta$",
+          "text": "коефіцієнт в'язкості (Па·с)"
+        },
+        {
+          "sym": "$\\rho_к$",
+          "text": "густина кульки (кг/м³)"
+        },
+        {
+          "sym": "$\\rho_р$",
+          "text": "густина рідини (кг/м³)"
+        },
+        {
+          "sym": "$g$",
+          "text": "9.8 м/с²"
+        },
+        {
+          "sym": "$t$",
+          "text": "час падіння (с)"
+        },
+        {
+          "sym": "$r$",
+          "text": "радіус кульки (м)"
+        },
+        {
+          "sym": "$l$",
+          "text": "відстань між мітками (м)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793356885164",
+      "name": "Середня динамічна в'язкість",
+      "category": "Молекулярна фізика",
+      "latex": "$\\langle \\eta \\rangle = \\frac{\\eta_1 + \\eta_2 + \\eta_3}{3}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle \\eta \\rangle",
+      "unit": "Па·с",
+      "mathExpr": "+((eta1 + eta2 + eta3) / 3).toFixed(2)",
+      "substTemplate": "\\frac{eta1 + eta2 + eta3}{3}",
+      "vars": [
+        {
+          "sym": "$\\eta_1",
+          "text": ""
+        },
+        {
+          "sym": "\\eta_2",
+          "text": ""
+        },
+        {
+          "sym": "\\eta_3$",
+          "text": "в'язкість окремих дослідів (Па·с)"
+        },
+        {
+          "sym": "$\\langle \\eta \\rangle$",
+          "text": "середня в'язкість (Па·с)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793357420335",
+      "name": "Середня абсолютна похибка в'язкості",
+      "category": "Молекулярна фізика",
+      "latex": "$\\langle \\Delta \\eta \\rangle = \\frac{\\Delta \\eta_1 + \\Delta \\eta_2 + \\Delta \\eta_3}{3}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle \\Delta \\eta \\rangle",
+      "unit": "Па·с",
+      "mathExpr": "+((deta1 + deta2 + deta3) / 3).toFixed(2)",
+      "substTemplate": "\\frac{deta1 + deta2 + deta3}{3}",
+      "vars": [
+        {
+          "sym": "$\\Delta \\eta_1",
+          "text": ""
+        },
+        {
+          "sym": "\\Delta \\eta_2",
+          "text": ""
+        },
+        {
+          "sym": "\\Delta \\eta_3$",
+          "text": "похибки окремих дослідів (Па·с)"
+        },
+        {
+          "sym": "$\\langle \\Delta \\eta \\rangle$",
+          "text": "середня абсолютна похибка (Па·с)"
+        }
+      ]
+    },
+    {
+      "id": "f-1793358320027",
+      "name": "Абсолютна похибка в'язкості",
+      "category": "Молекулярна фізика",
+      "latex": "$\\Delta \\eta = |\\eta - \\langle \\eta \\rangle|$",
+      "symbols": "",
+      "description": "",
+      "resVar": "Δη",
+      "unit": "Па·с",
+      "mathExpr": "Math.abs(eta - eta_avg)",
+      "substTemplate": "|\\eta - \\langle \\eta \\rangle|",
+      "vars": [
+        {
+          "sym": "\\Delta \\eta",
+          "text": "абсолютна похибка"
+        },
+        {
+          "sym": "\\eta",
+          "text": "значення в'язкості"
+        },
+        {
+          "sym": "\\langle \\eta \\rangle",
+          "text": "середнє значення в'язкості"
+        }
+      ]
+    },
+    {
+      "id": "f-1793359172684",
+      "name": "Відносна похибка в'язкості",
+      "category": "Механіка",
+      "latex": "$E = \\frac{\\langle\\Delta\\eta\\rangle}{\\langle\\eta\\rangle} \\cdot 100\\%$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E",
+      "unit": "%",
+      "mathExpr": "(deta / eta) * 100",
+      "substTemplate": "\\frac{deta}{eta} \\cdot 100\\%",
+      "vars": [
+        {
+          "sym": "E",
+          "text": "відносна похибка"
+        },
+        {
+          "sym": "\\langle\\Delta\\eta\\rangle",
+          "text": "середня абсолютна похибка"
+        },
+        {
+          "sym": "\\langle\\eta\\rangle",
+          "text": "середнє значення коефіцієнта в'язкості"
+        }
+      ]
+    },
+    {
+      "id": "f-1793361693226",
+      "name": "Універсальна газова стала (R)",
+      "category": "Молекулярна фізика",
+      "latex": "$R = \\frac{\\mu V}{T} \\cdot \\frac{\\Delta p}{\\Delta m}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "R",
+      "unit": "Дж/(моль·К)",
+      "mathExpr": "(0.029 * 0.001 * dp * 100000) / (293 * dm)",
+      "substTemplate": "\\frac{0.029 \\cdot 10^{-3}}{293} \\cdot \\frac{dp \\cdot 10^5}{dm}",
+      "vars": [
+        {
+          "sym": "$R$",
+          "text": "універсальна газова стала"
+        },
+        {
+          "sym": "$\\mu$",
+          "text": "молярна маса повітря"
+        },
+        {
+          "sym": "$V$",
+          "text": "об'єм колби"
+        },
+        {
+          "sym": "$T$",
+          "text": "температура"
+        },
+        {
+          "sym": "$\\Delta p$",
+          "text": "зміна тиску"
+        },
+        {
+          "sym": "$\\Delta m$",
+          "text": "маса відкачаного повітря"
+        }
+      ]
+    },
+    {
+      "id": "f-1793362010290",
+      "name": "Середнє значення газової сталої (<R>)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\langle R \\rangle = \\frac{R_1 + R_2 + R_3}{3}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle R \\rangle",
+      "unit": "Дж/(моль·К)",
+      "mathExpr": "(R1 + R2 + R3) / 3",
+      "substTemplate": "\\frac{R1 + R2 + R3}{3}",
+      "vars": [
+        {
+          "sym": "$\\langle R \\rangle$",
+          "text": "середня газова стала"
+        },
+        {
+          "sym": "$R_1$",
+          "text": "результат 1-го досліду"
+        },
+        {
+          "sym": "$R_2$",
+          "text": "результат 2-го досліду"
+        },
+        {
+          "sym": "$R_3$",
+          "text": "результат 3-го досліду"
+        }
+      ]
+    },
+    {
+      "id": "f-1793362247540",
+      "name": "Абсолютна похибка газової сталої (ΔR)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\Delta R = |R - \\langle R \\rangle|$",
+      "symbols": "",
+      "description": "",
+      "resVar": "ΔR",
+      "unit": "Дж/(моль·К)",
+      "mathExpr": "Math.abs(R - R_avg)",
+      "substTemplate": "|R - R_avg|",
+      "vars": [
+        {
+          "sym": "$\\Delta R$",
+          "text": "абсолютна похибка"
+        },
+        {
+          "sym": "$R$",
+          "text": "значення газової сталої досліду"
+        },
+        {
+          "sym": "$\\langle R \\rangle$",
+          "text": "середнє значення газової сталої"
+        }
+      ]
+    },
+    {
+      "id": "f-1793362490545",
+      "name": "Середня абсолютна похибка (<ΔR>)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\langle \\Delta R \\rangle = \\frac{\\Delta R_1 + \\Delta R_2 + \\Delta R_3}{3}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle \\Delta R \\rangle",
+      "unit": "Дж/(моль·К)",
+      "mathExpr": "(dR1 + dR2 + dR3) / 3",
+      "substTemplate": "\\frac{dR1 + dR2 + dR3}{3}",
+      "vars": [
+        {
+          "sym": "$\\langle \\Delta R \\rangle$",
+          "text": "середня абсолютна похибка"
+        },
+        {
+          "sym": "$\\Delta R_1$",
+          "text": "похибка 1-го досліду"
+        },
+        {
+          "sym": "$\\Delta R_2$",
+          "text": "похибка 2-го досліду"
+        },
+        {
+          "sym": "$\\Delta R_3$",
+          "text": "похибка 3-го досліду"
+        }
+      ]
+    },
+    {
+      "id": "f-1793362726316",
+      "name": "Відносна похибка газової сталої (E_R)",
+      "category": "Молекулярна фізика",
+      "latex": "$E_R = \\frac{\\langle \\Delta R \\rangle}{\\langle R \\rangle} \\cdot 100\\%$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E_R",
+      "unit": "%",
+      "mathExpr": "(dR_avg / R_avg) * 100",
+      "substTemplate": "\\frac{dR_avg}{R_avg} \\cdot 100\\%",
+      "vars": [
+        {
+          "sym": "$E_R$",
+          "text": "відносна похибка"
+        },
+        {
+          "sym": "$\\langle \\Delta R \\rangle$",
+          "text": "середня абсолютна похибка"
+        },
+        {
+          "sym": "$\\langle R \\rangle$",
+          "text": "середня газова стала"
+        }
+      ]
+    },
+    {
+      "id": "f-1793367816898",
+      "name": "Коефіцієнт Пуассона (γ)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\gamma = \\frac{H}{H - h}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "γ",
+      "unit": "",
+      "mathExpr": "H / (H - h)",
+      "substTemplate": "\\frac{H}{H - h}",
+      "vars": [
+        {
+          "sym": "$\\gamma$",
+          "text": "коефіцієнт Пуассона"
+        },
+        {
+          "sym": "$H$",
+          "text": "початкова різниця рівнів"
+        },
+        {
+          "sym": "$h$",
+          "text": "кінцева різниця рівнів"
+        }
+      ]
+    },
+    {
+      "id": "f-1793368497732",
+      "name": "Середнє значення коефіцієнта Пуассона (<γ>)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\langle \\gamma \\rangle = \\frac{\\gamma_1 + \\gamma_2 + \\gamma_3 + \\gamma_4 + \\gamma_5}{5}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle \\gamma \\rangle",
+      "unit": "",
+      "mathExpr": "(g1 + g2 + g3 + g4 + g5) / 5",
+      "substTemplate": "\\frac{g1 + g2 + g3 + g4 + g5}{5}",
+      "vars": [
+        {
+          "sym": "$\\langle \\gamma \\rangle$",
+          "text": "середній коефіцієнт Пуассона"
+        },
+        {
+          "sym": "$\\gamma_1$",
+          "text": "дослід 1"
+        },
+        {
+          "sym": "$\\gamma_2$",
+          "text": "дослід 2"
+        },
+        {
+          "sym": "$\\gamma_3$",
+          "text": "дослід 3"
+        },
+        {
+          "sym": "$\\gamma_4$",
+          "text": "дослід 4"
+        },
+        {
+          "sym": "$\\gamma_5$",
+          "text": "дослід 5"
+        }
+      ]
+    },
+    {
+      "id": "f-1793368675467",
+      "name": "Абсолютна похибка коефіцієнта Пуассона (Δγ)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\Delta \\gamma = |\\gamma - \\langle \\gamma \\rangle|$",
+      "symbols": "",
+      "description": "",
+      "resVar": "Δγ",
+      "unit": "",
+      "mathExpr": "Math.abs(g - g_avg)",
+      "substTemplate": "|g - g_avg|",
+      "vars": [
+        {
+          "sym": "$\\Delta \\gamma$",
+          "text": "абсолютна похибка"
+        },
+        {
+          "sym": "$\\gamma$",
+          "text": "значення коефіцієнта в досліді"
+        },
+        {
+          "sym": "$\\langle \\gamma \\rangle$",
+          "text": "середнє значення коефіцієнта"
+        }
+      ]
+    },
+    {
+      "id": "f-1793368923323",
+      "name": "Середня абсолютна похибка (<Δγ>)",
+      "category": "Молекулярна фізика",
+      "latex": "$\\langle \\Delta \\gamma \\rangle = \\frac{\\Delta \\gamma_1 + \\Delta \\gamma_2 + \\Delta \\gamma_3 + \\Delta \\gamma_4 + \\Delta \\gamma_5}{5}$",
+      "symbols": "",
+      "description": "",
+      "resVar": "\\langle \\Delta \\gamma \\rangle",
+      "unit": "",
+      "mathExpr": "(dg1 + dg2 + dg3 + dg4 + dg5) / 5",
+      "substTemplate": "\\frac{dg1 + dg2 + dg3 + dg4 + dg5}{5}",
+      "vars": [
+        {
+          "sym": "$\\langle \\Delta \\gamma \\rangle$",
+          "text": "середня абсолютна похибка"
+        },
+        {
+          "sym": "$\\Delta \\gamma_1$",
+          "text": "похибка 1-го досліду"
+        },
+        {
+          "sym": "$\\Delta \\gamma_2$",
+          "text": "похибка 2-го досліду"
+        },
+        {
+          "sym": "$\\Delta \\gamma_3$",
+          "text": "похибка 3-го досліду"
+        },
+        {
+          "sym": "$\\Delta \\gamma_4$",
+          "text": "похибка 4-го досліду"
+        },
+        {
+          "sym": "$\\Delta \\gamma_5$",
+          "text": "похибка 5-го досліду"
+        }
+      ]
+    },
+    {
+      "id": "f-1793369122037",
+      "name": "Відносна похибка коефіцієнта Пуассона (E)",
+      "category": "Молекулярна фізика",
+      "latex": "$E = \\frac{\\langle \\Delta \\gamma \\rangle}{\\langle \\gamma \\rangle} \\cdot 100\\%$",
+      "symbols": "",
+      "description": "",
+      "resVar": "E",
+      "unit": "%",
+      "mathExpr": "(dg_avg / g_avg) * 100",
+      "substTemplate": "\\frac{dg_avg}{g_avg} \\cdot 100\\%",
+      "vars": [
+        {
+          "sym": "$E$",
+          "text": "відносна похибка"
+        },
+        {
+          "sym": "$\\langle \\Delta \\gamma \\rangle$",
+          "text": "середня абсолютна похибка"
+        },
+        {
+          "sym": "$\\langle \\gamma \\rangle$",
+          "text": "середній коефіцієнт Пуассона"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "number": "1.12",
+      "category": "Механіка / Кінематика",
+      "text": "Автомобіль, рухаючись рівноприскорено, через час 10 с після\nпочатку руху досягнув швидкості 36 км/год. Визначити прискорення, з яким\nрухався автомобіль. Який шлях він при цьому пройшов? Який шлях\nавтомобіль пройшов за останню секунду?",
+      "given": "$t$ = 10 с\n$v_0$ = 0\n$v$ = 36 км/год",
+      "si": "$$v = \\frac{36}{3,6}=10м/с$$",
+      "find": "$a$ — ?\n$S$ — ?\n$Sост$ — ?",
+      "formulaIds": [],
+      "solution": "1) Знаходимо прискорення автомобіля ($a$):\n\n[calc:f-accel | v=10, v0=0, t=10]\n\n2) Знаходимо повний шлях за 10 секунд (S):\n\n[calc:f-1793117008906 | v0=0, a=1,t=10]\n\n3) Знаходимо шлях за останню (10-ту) секунду ($S_{10}$):\n[calc:f-1793199768886 | a=1,t1=9,t2=10]\n",
+      "answer": "$a = 1 м/с²; S = 50 м; S_{10}=9,5м$",
+      "variables": "v=10 t=10 v_0=0",
+      "calculations": [
+        {
+          "title": "1) Знаходження прискорення a:",
+          "mainFormula": "v = v_0 + at",
+          "derivedFormula": "a = \\frac{v - v_0}{t}",
+          "mathExpr": "(v - v0) / t",
+          "substLatex": "\\frac{10 - 0}{10}",
+          "unit": "м/с²",
+          "formulaId": "f-accel"
+        }
+      ]
+    },
+    {
+      "id": "1793029958493",
+      "number": "1.78",
+      "category": "Механіка / Кінематика",
+      "text": "Кинутий зі швидкістю 12 м/с під кутом 45° до горизонту камінь\nупав на землю на відстані S від місця кидання. З якої висоти треба кинути\nкамінь у горизонтальному напрямку, щоб при тій же початковій швидкості він\nупав на теж саме місце?",
+      "given": "$v_0 = 12 \\text{ м/с}$\n$\\alpha = 45^\\circ $\n$S_1 = S_2 = S $\n$g = 9{,}8 \\text{ м/с}^2 $",
+      "si": "",
+      "find": "$h - ?$",
+      "formulaIds": [],
+      "solution": "1) Знаходимо дальність польоту каменя, кинутого під кутом до горизонту (S):\n\n[calc:f-1793118393748 | v0=12, alpha=45, g=9.8]\n\n2) Знаходимо висоту кидання каменя у горизонтальному напрямку (h):\n\n[calc:f-1793200978864 | S=14.7,g=9.8,v0=12]\n",
+      "answer": "h=7,35м"
+    },
+    {
+      "id": "1793030053962",
+      "number": "1.91",
+      "category": "Механіка / Кінематика",
+      "text": "1.91. Вал обертається з частотою 180 об/хв. З деякого моменту часу вал\nгальмується та обертається рівносповільнено з кутовим прискоренням 3\nрад/$с^2$\n. Через який час вал зупиниться? Скільки обертів він зробить до\nзупинки?\n",
+      "given": "$n = 180\\text{ об/хв}$\n$\\varepsilon = 3\\text{ рад/с}^2$\n$\\omega = 0\\text{ рад/с}$",
+      "si": "$n = \\frac{180}{60} = 3\\text{ с}^{-1}$ $\\omega_0 = 2\\pi n = 6\\pi\\text{ рад/с}$  $6\\pi\\text{ рад/с} \\approx 18{,}85\\text{ рад/с}$",
+      "find": "$t - ?$\n$N - ?$",
+      "formulaIds": [],
+      "solution": "1) Знаходимо час до зупинки вала (t):\n\n\n[calc:f-1793201698718 | w0=18.84, eps=3]\n\n\n2) Знаходимо кількість обертів до зупинки (N):\n\n\n[calc:f-1793136274383 | phi0=0, w0=18.84, eps=-3, t=6.28]\n\n\n[calc:f-1793190498755 | phi=59.16]\n\n\n\n\n\n",
+      "answer": "N=9 обертів"
+    },
+    {
+      "id": "1793030147211",
+      "number": "1.183",
+      "category": "Механіка / Динаміка",
+      "text": "1.183. По похилій площині висотою 0,5 м і довжиною схилу 1 м ковзає\nвниз тіло масою 3 кг і досягає основи похилої площини зі швидкістю 2,45 м/с.\nЗнайти коефіцієнт тертя тіла по площині та кількість теплоти, що виділяється\nпри терті. Початкова швидкість тіла дорівнює нулю. ",
+      "given": "$h = 0{,}5\\text{ м}$\n$l = 1\\text{ м}$\n$m = 3\\text{ кг}$\n$v = 2{,}45\\text{ м/с}$\n$v_0 = 0\\text{ м/с}$\n$g = 9{,}8\\text{ м/с}^2$",
+      "si": "",
+      "find": "$\\mu - ?$\n$Q - ?$",
+      "formulaIds": [],
+      "solution": "1) Знаходимо кількість теплоти (Q), що виділяється при терті:\n\n[calc:f-1793203558089 | m=3,g=9.8,h=0.5]\n\n\n[calc:f-1793203756613 | m=3,v=2.45]\n\n[calc:f-1793203966736 | Ep=14.7,Ek=9]\n\n\n[calc:f-1793204222835 | Q=5.7, m=3, g=9.8, alpha=30, l=1]\n\n\n",
+      "answer": "$Q$ = 5,7Дж;$ \\mu$ = 0,22"
+    },
+    {
+      "id": "1793030190150",
+      "number": "1.223",
+      "category": "Механіка / Динаміка",
+      "text": "1.223. Тіло масою 2 кг рухається назустріч іншому тілу масою 1,5 кг та\nнепружно зіштовхується з ним. Швидкість тіл перед зіткненням відповідно 1\nм/с та 2 м/с. Скільки часу будуть рухатися ці тіла після зіткнення, якщо\nкоефіцієнт тертя об поверхню дорівнює 0,05 ?",
+      "given": "$m_1$ = 2 кг\n$m_2$ = 1,5 кг\n$v_1$ = 1 м/с\n$v_2$ = 2 м/с\n$\\mu$ = 0,05\n$g$ = 9,8 м/с²",
+      "si": "",
+      "find": "$t$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793205025229 | m1=2,m2=1.5,v1=1,v2=2]\n\n[calc:f-1793205364639 | u=0.29, mu=0.05, g=9.8]\n\n",
+      "answer": "0,59 с"
+    },
+    {
+      "id": "1793030219396",
+      "number": "1.233",
+      "category": "Механіка / Динаміка",
+      "text": "1.233. Дві кулі підвішені на паралельних нитках однакової довжини так,\nщо вони дотикаються. Маса першої кулі 0,2 кг, другої 100 г. Першу кулю\nвідхиляють так, щоб її центр ваги піднявся на висоту 4,5 см та відпускають. На\nяку висоту піднімуться кулі після зіткнення, якщо удар пружний? непружний?",
+      "given": "$m_1$ = 0,2 кг\n$m_2$ = 100 г\n$h_1$ = 4,5 см\n$g$ = 9,8 м/с²",
+      "si": "$m_2$ = 0,1 кг  $h_1$ = 0,045 м",
+      "find": "$h'_1$ — ?\n$h'_2$ — ?\n$h''$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793205953054 | m1=0.2, m2=0.1, h1=0.045]\n\n\n[calc:f-1793206140581 | m1=0.2, m2=0.1, h1=0.045]\n\n\n[calc:f-1793206345367 | m1=0.2, m2=0.1, h1=0.045]\n\n",
+      "answer": "$h'_1$ = 0,5см $h'_2$ = 8см  $h''$ = 2см"
+    },
+    {
+      "id": "1793030513676",
+      "number": "10.10",
+      "category": "Механіка /  Гідростатика",
+      "text": "10.10. Прямокутна коробочка з жерсті масою m = 76 г\nз площею дна S = 38 $см^2$ і висотою H = 6 см плаває у воді.\nВизначити висоту h надводної частини коробочки.",
+      "given": "$m$ = 76 г\n$S$ = 38 см²\n$H$ = 6 см\n$\\rho$ = 1000 кг/м³",
+      "si": "$m$ = 0,076 кг $S$ = 0,0038 м² $H$ = 0,06 м",
+      "find": "$h$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793207183952 | m=0.076, rho=1000, S=0.0038]\n\n\n[calc:f-1793207376505 | H=0.06, h_zan=0.02]\n\n",
+      "answer": "h=0,04 см"
+    },
+    {
+      "id": "1793030607627",
+      "number": "8.3",
+      "category": "Механіка / Динаміка",
+      "text": "\nЯкою має бути сила F, щоб можна було рівномірно\nрухати ящик масою М = 60 кг вздовж горизонтальної поверхні, коли коефіцієнт тертя між ящиком і площиною k = 0,27,\na сила діє під кутом а = 30° до горизонту?\n",
+      "given": "$M$ = 60 кг\n$k$ = 0,27\n$\\alpha$ = 30°\n$g$ = 9,8 м/с²",
+      "si": "",
+      "find": "$F$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793207828780 | k=0.27, M=60, g=9.8, alpha=30]\n",
+      "answer": "158,6 Н"
+    },
+    {
+      "id": "1793030754024",
+      "number": "8.19",
+      "category": "Механіка / Статика",
+      "text": "Залізний прут масою М зігнуто пополам так,\nщо його частини утворюють прямий кут (рис. 37). Прут підвішено за один з кінців на шарнірі. Знайти кут $\\alpha$, який утворює\nз вертикаллю верхній стержень у положенні рівноваги.",
+      "given": "$M$\n$\\beta$ = 90°\n$L_1 = L_2$",
+      "si": "",
+      "find": "$\\alpha$ — ?",
+      "formulaIds": [],
+      "solution": "[formula:f-1793208223328]\n\n\n[calc:f-1793208313481 | k=3]\n",
+      "answer": "$\\alpha$=18,4°"
+    },
+    {
+      "id": "1793030856967",
+      "number": "2.7",
+      "category": "Молекулярна фізика/Термодинаміка",
+      "text": "2.7. Знайти масу сірчаного газу ($SO_2$), який займає об’єм 25 л при\nтемпературі 27 ºС і тиску 100 кПа?",
+      "given": "$V$ = 25 л\n$t$ = 27 °C\n$p$ = 100 кПа\n$M$ = 64 г/моль\n$R$ = 8,31 Дж/(моль·К)",
+      "si": "$V$ = 0,025 м³ $T$ = 300 К $p$ = 100000 Па $M$ = 0,064 кг/моль",
+      "find": "$m$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793209259706 | p=100000, V=0.025, M=0.064, R=8.31, T=300]\n",
+      "answer": "m=64 г"
+    },
+    {
+      "id": "1793030915468",
+      "number": "2.47",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "text": "У скільки разів збільшиться об’єм повітряної кулі, якщо її внести з\nвулиці в тепле приміщення? Температура назовні –3 ºС, в приміщенні +27ºС. ",
+      "given": "$t_1$ = -3 °C\n$t_2$ = 27 °C\n$p = \\text{const}$",
+      "si": "$T_1$ = 270 К $T_2$ = 300 К",
+      "find": "$\\frac{V_2}{V_1}$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793209724240 | T2=300, T1=270]\n",
+      "answer": "об'єм збільшився в 1.11 раза"
+    },
+    {
+      "id": "1793031005041",
+      "number": "2.72",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "text": "Визначити сумарну кінетичну енергію поступального руху всіх\nмолекул газу, який міститься в посудині об’ємом 3 л під тиском 540 кПа. ",
+      "given": "$V$ = 3 л\n$p$ = 540 кПа",
+      "si": "$V$ = 0,003 м³ $p$ = 540000 Па",
+      "find": "$E_{\\text{к}}$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793210177886 | p=540000, V=0.003]\n",
+      "answer": "Ek=2430 Дж"
+    },
+    {
+      "id": "1793031050524",
+      "number": "2.232",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "text": "10 г кисню знаходяться під тиском 0,3 МПа при температурі 10 ºС.\nПісля нагрівання при сталому тиску газ зайняв об’єм 10 л. Визначити кількість\nтеплоти, отриманої газом; енергію теплового руху молекул газу до та після\nнагрівання. ",
+      "given": "$m$ = 10 г\n$p$ = 0,3 МПа\n$t_1$ = 10 °C\n$V_2$ = 10 л\n$M$ = 32 г/моль\n$i$ = 5\n$R$ = 8,31 Дж/(моль·К)",
+      "si": "$m$ = 0,01 кг $p$ = 300000 Па $T_1$ = 283 К $V_2$ = 0,01 м³ $M$ = 0,032 кг/моль",
+      "find": "$Q$ — ?\n$U_1$ — ?\n$U_2$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793210641454 | m=0.01, M=0.032, R=8.31, T1=283]\n\n\n[calc:f-1793211092214 | p=300000, V2=0.01]\n\n\n[calc:f-1793211363155 | p=300000, V2=0.01]\n\n\n",
+      "answer": "$U_1$=1837 Дж; $U_2$=7500 Дж; Q=10500 Дж"
+    },
+    {
+      "id": "1793031081522",
+      "number": "2.284",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "text": "За рахунок 1 кДж теплоти, отриманої від нагрівача, машина, що\nпрацює за циклом Карно, виконує роботу 0,5 кДж. Температура нагрівача 500\nК. Визначити температуру холодильника. ",
+      "given": "$Q_1$ = 1 кДж\n$A$ = 0,5 кДж\n$T_1$ = 500 К",
+      "si": "$Q_1$ = 1000 Дж $A$ = 500 Дж",
+      "find": "$T_2$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793212473404 | T1=500, A=500, Q1=1000]\n",
+      "answer": "T2=250K"
+    },
+    {
+      "id": "1793031104572",
+      "number": "2.297",
+      "category": "Молекулярна фізика / Термодинаміка",
+      "text": "Ідеальна холодильна машина, яка працює за зворотним циклом\nКарно, передає теплоту від холодильника з водою при температурі 0 ºС\nкип’ятильнику з водою при температурі 100 ºС. Яку кількість води потрібно\nзаморозити в холодильнику, для того, щоб перетворити в пару 1 кг води, що\nзнаходиться в кип’ятильнику? ",
+      "given": "$t_2$ = 0 °C\n$t_1$ = 100 °C\n$m_1$ = 1 кг\n$r$ = 2,26 · 10⁶ Дж/кг\n$\\lambda$ = 3,35 · 10⁵ Дж/кг",
+      "si": "$T_2$ = 273 К $T_1$ = 373 К $r$ = 2260000 Дж/кг $\\lambda$ = 335000 Дж/кг",
+      "find": "$m_2$ — ?",
+      "formulaIds": [],
+      "solution": "\n[calc:f-1793213015625 | r=2260000, m1=1, T2=273, lam=335000, T1=373]\n",
+      "answer": "m2=4,94кг"
+    },
+    {
+      "id": "1793031166068",
+      "number": "3.25",
+      "category": "",
+      "text": "Відстань між двома точковими зарядами 2 нКл і 4 нКл складає 60 см.\nВизначити точку, в якій треба розташувати третій заряд, щоб система зарядів\nперебувала у рівновазі. Визначити значення та знак заряду.",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793031201276",
+      "number": "3.85",
+      "category": "",
+      "text": "Елемент електроживлення, реостат і амперметр ввімкнено\nпослідовно. Елемент має ЕРС 2 В і внутрішній опір 0,4 Ом. Амперметр показує\nсилу струму 1 А. З яким ККД працює елемент? ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793031231290",
+      "number": "3.97",
+      "category": "",
+      "text": "Знайти падіння потенціалів у кожному опорі (рис. 3.1), якщо їхні\nчислові значення відповідно 4 Ом, 2 Ом та 4 Ом. Амперметр показує силу\nструму 3 А. Знайти струми у другому та третьому опорах. ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793108840432",
+      "number": "928",
+      "category": "",
+      "text": "928. До зажимів генератора приєднаний конденсатор з ємністю\nС = 0,1 мкФ. Знайти амплітуду напруги на затискачах, якщо амплітуда струму\n$I_0$ = 2,2 А, а період струму Т = 0,2 мс.",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793108879426",
+      "number": "918",
+      "category": "",
+      "text": "З якою кутовою швидкістю треба обертати прямий провідник\nдовжиною r = 20 см навколо одного з його кінців в площині, перпендикулярній\nдо ліній індукції однорідного магнітного поля, щоб в провіднику індукувалась\nЕРС ℰ = 0,3 В? Магнітна індукція поля В = 0,2 Тл",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793108906576",
+      "number": "913",
+      "category": "",
+      "text": "Замкнута котушка діаметра D з числом витків n розміщена в\nоднорідному магнітному поле з індукцією В. Площина котушки\nперпендикулярна до ліній індукції поля. Який заряд q протече по колу котушки,\nякщо її повернути на 180°? Дріт, з якої намотана котушка, має площу перерізу\nS і питомий опір ρ.\n",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793109043673",
+      "number": "4.48",
+      "category": "",
+      "text": "Показник заломлення матеріалу призми для деякого монохроматичного\nпроменя 1,6. Яким має бути найбільший кут падіння цього променя на призму, щоб при\nвиході променя з неї не відбулося повне відбивання? Кут заломлення призми – 45°. ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793109065243",
+      "number": "4.86",
+      "category": "",
+      "text": "Паралельний пучок променів, падаючи на розсіювальну лінзу з діаметром 6 см,\nдає на екрані, що розміщений на відстані 10 см від лінзи, світле коло діаметром 11 см.\nВизначити фокусну відстань лінзи. ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793109106851",
+      "number": "4.115",
+      "category": "",
+      "text": "Визначити збільшення мікроскопа, якщо головна фокусна відстань об’єктива\n4,0 мм, головна фокусна відстань окуляра 15 мм і довжина тубуса 12 см.",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793109152953",
+      "number": "4.120",
+      "category": "",
+      "text": "Фокусна відстань об’єктива мікроскопа 4 мм, а окуляра 2,5 см. Предмет\nзнаходиться на відстані 0,2 мм від головного фокуса об’єктива: а) яка довжина тубуса\nмікроскопа; б) яке збільшення цього мікроскопа? ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793109183406",
+      "number": "4.133",
+      "category": "",
+      "text": "Відстань від щілин до екрана в досліді Юнга дорівнює 1 м. Визначити\nвідстань між двома щілинами, якщо на відрізку довжиною 1 см вкладається 10 темних\nінтерференційних смуг. Довжина хвилі становить 0,7 мкм. ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    },
+    {
+      "id": "1793109211612",
+      "number": "4.101",
+      "category": "",
+      "text": "Зображення предмета на матовому склі фотоапарата з відстані 15 м вийшло\nвисотою 30 мм, а з відстані 9 мм - висотою 51 мм. Знайти фокусну відстань об’єктива. ",
+      "given": "",
+      "si": "",
+      "find": "",
+      "formulaIds": [],
+      "solution": "",
+      "answer": ""
+    }
+  ],
+  "labs": [
+    {
+      "id": "lab-1",
+      "number": "1",
+      "title": "Вивчення обертального руху твердого тіла за допомогою маятника Обербека",
+      "category": "Механіка",
+      "goal": "Встановити дослідним шляхом залежність між моментом сили, який обертає тіло, моментом інерції тіла і кутовим прискоренням.",
+      "equipment": "Маятник Обербека, секундомір, штангенциркуль, набір важків.",
+      "theory": "1. Середній час для досліду 1:\n\n[calc:f-1793278993202 | row=1 | t1=10.47, t2=10.38, t3=10.19]\n\n2. Середній час для досліду 2:\n\n[calc:f-1793278993202 | row=2 | t1=8.97, t2=9.07, t3=9.10]\n\n3. Середній час для досліду 3:\n\n[calc:f-1793278993202 | row=3 | t1=7.90, t2=7.73, t3=7.98]\n\n2. Розрахунок кутового прискорення:\nДля досліду 1:\n\n\n[calc:f-1793279828867 | row=1 | h=0.71, t=10.35, r=0.0275]\n\n\nДля досліду 2:\n\n[calc:f-1793279828867 | row=2 | h=0.71, t=9.05, r=0.0275]\n\nДля досліду 3:\n\n[calc:f-1793279828867 | row=3 | h=0.71, t=7.87, r=0.0275]\n\n3. Розрахунок обертового моменту:\n\nДля досліду 1:\n\n[calc:f-1793280995977 | row=1 | m=0.59, g=9.8, h=0.71, t=10.35, r=0.0275]\n\nДля досліду 2:\n\n[calc:f-1793280995977 | row=2 | m=0.79, g=9.8, h=0.71, t=9.05, r=0.0275]\n\nДля досліду 3:\n\n[calc:f-1793280995977 | row=3 | m=0.99, g=9.8, h=0.71, t=7.87, r=0.0275]\n\n4. Розрахунок моменту інерції маятника Обербека:\nДля досліду 1:\n\n[calc:f-1793282017820 | row=1 | M=0.159, eps=0.48]\n\nДля досліду 2:\n\n\n[calc:f-1793282017820 | row=2 | M=0.213, eps=0.63]\n\nДля досліду 3:\n\n[calc:f-1793282017820 | row=3 | M=0.266, eps=0.83]\n\n\n5.Абсолютна похибка моменту інерції\n\nДля досліду 1:\n\n[calc:f-1793283582045 | row=1 | I=0.33, avgI=0.33]\n\nДля досліду 2:\n\n[calc:f-1793283582045 | row=2 | I=0.34, avgI=0.33]\n\nДля досліду 3:\n\n[calc:f-1793283582045 | row=3 | I=0.32, avgI=0.33]\n\n6. Розрахунок відносної похибки E:\n\nДля досліду 1:\n\n\n[calc:f-1793350068825 | row=1 | dI=0.00, avgI=0.33]\n\nДля досліду 2:\n\n\n[calc:f-1793350068825 | row=2 | dI=0.01, avgI=0.33]\n\nДля досліду 3:\n\n[calc:f-1793350068825 | row=3 | dI=0.01, avgI=0.33]\n\nТаблиця 2:\n\n1. Середній час для досліду 1:\n\n[calc:f-1793278993202 | tbl=2 | row=1 | t1=10.47, t2=10.38, t3=10.19]\n\n\n2. Середній час для досліду 2:\n\n\n[calc:f-1793278993202 | tbl=2 | row=2 | t1=8.10, t2=7.89, t3=7.85]\n\n\n3. Середній час для досліду 3:\n\n[calc:f-1793278993202 | tbl=2 | row=3 | t1=7.17, t2=7.36, t3=7.02]\n\n\n2. Розрахунок кутового прискорення:\nДля досліду 1:\n\n[calc:f-1793279828867 | tbl=2 | row=1 | h=0.71, t=10.35, r=0.0275]\n\n\nДля досліду 2:\n\n[calc:f-1793279828867 | tbl=2 | row=2 | h=0.71, t=7.95, r=0.0275]\n\nДля досліду 3:\n\n[calc:f-1793279828867 | tbl=2 | row=3 | h=0.71, t=7.18, r=0.0275]\n\n\n4. Розрахунок обертового моменту:\n\nДля досліду 1:\n\n[calc:f-1793280995977 | tbl=2 | row=1 | m=0.59, g=9.8, h=0.71, t=10.35, r=0.0275]\n\n\n\nДля досліду 2:\n\n[calc:f-1793280995977 | tbl=2 | row=2 | m=0.59, g=9.8, h=0.71, t=7.95, r=0.0275]\n\nДля досліду 3:\n\n[calc:f-1793280995977 | tbl=2 | row=3 | m=0.59, g=9.8, h=0.71, t=7.18, r=0.0275]\n\n4. Розрахунок моменту інерції маятника Обербека:\nДля досліду 1:\n\n[calc:f-1793282017820 | tbl=2 | row=1 | M=0.16, eps=0.48]\n\n\nДля досліду 2:\n\n\n[calc:f-1793282017820 | tbl=2 | row=2 | M=0.16, eps=0.82]\n\nДля досліду 3:\n\n[calc:f-1793282017820 | tbl=2 | row=3 | M=0.16, eps=0.1]\n\nРозрахунок похибки моменту сили для Таблиці 2:\n\n[calc:f-1793353402495 | tbl=2 | row=1 | M=0.16, avgM=0.16]\n[calc:f-1793353402495 | tbl=2 | row=2 | M=0.16, avgM=0.16]\n[calc:f-1793353402495 | tbl=2 | row=3 | M=0.16, avgM=0.16]\n\nРозрахунок відносної похибки E для Таблиці 2:\n\n[calc:f-1793353735000 | tbl=2 | | row=1 | dM=0.00, avgM=0.16]\n[calc:f-1793353735000 | tbl=2 | | row=2 | dM=0.00, avgM=0.16]\n[calc:f-1793353735000 | tbl=2 | | row=3 | dM=0.00, avgM=0.16]\n\n\n\n",
+      "formulaIds": [],
+      "tableHeaders": "№ з/п, $m$ (кг), $t$ (с), $\\langle t \\rangle$ (с), $\\varepsilon = \\frac{2h}{\\langle t \\rangle^2 r_{шк}}$, $M$ (Н·м), $I = \\frac{M}{\\varepsilon}$ (кг·м²), $\\Delta I$ (кг·м²), $E$ (%)",
+      "tableRowsCount": 3,
+      "simUrl": "https://lab.ter.pp.ua/oberbek/index.html",
+      "tableData": "0.59, 10.47 / 10.38 / 10.19, 10.35, 0.48, 0.159, 0.33, 0.01, 3.2%\n0.79, 8.97 / 9.07 / 9.10, 12.73, 0.32, 0.105, 0.33, 0.01, 3.1%\n0.99, 7.90 / 7.73 / 7.98, 18.36, 0.15, 0.051, 0.33, 0.01, 3.0%",
+      "tableParams": "$r_{шк} = D_{шківа}/2 = 0.0275\\text{ м}$, $h = 0.71\\text{ м}$",
+      "tableFooter": "<I> = 0.33 кг·м², <ΔI> = 0.006 кг·м², E = 2%",
+      "table2Title": "Таблиця 2. Залежність кутового прискорення від моменту інерції",
+      "table2Params": "$m = 0.59\\text{ кг}$, $h = 0.71\\text{ м}$",
+      "table2Headers": "№ з/п, $R$ (м), $t$ (с), $\\langle t \\rangle$ (с), $\\varepsilon$ (1/с²), $I$ (кг·м²), $M$ (Н·м), $\\Delta M$ (Н·м), $E$ (%)",
+      "table2RowsCount": 3,
+      "table2Data": "Тягарці на кінцях стержня, 0.44, 10.47 / 10.38 / 10.19, 10.35, 0.48, 0.33, 0.16, 0.00, 0.0%\nТягарці на середині стержня, 0.24, 8.10 / 7.89 / 7.85, 7.80, 0.85, 0.19, 0.16, 0.00, 0.0%\nТягарці біля шківа, 0.14, 7.17 / 7.36 / 7.02, 5.10, 1.98, 0.08, 0.16, 0.00, 0.0%",
+      "table2Footer": "<M> = 0.16 Н·м, <ΔM> = 0.00 Н·м, E = 0.0%"
+    },
+    {
+      "id": "lab-1793029226306",
+      "number": "2",
+      "category": "Механіка",
+      "title": "ВИЗНАЧЕННЯ В’ЯЗКОСТІ РІДИНИ МЕТОДОМ СТОКСА",
+      "goal": "визначити в’язкість невідомої рідини методом Стокса та порівняти одержані\nдані з теоретичними",
+      "equipment": "свинцеві кульки різного діаметру, мікрометр, секундомір, прозора труба з в’зкою рідиною, лінійка.",
+      "theory": "1.Розрахунок коефіцієнта в'язкості для трьох кульок:\n1. Кулька 1 (d = 2.0 мм, r = 0.0010 м):\n\n[calc:f-1793355983382 | row=1 | rhok=11350, rhop=1260, g=9.8, t=12.82, r=0.0010, l=0.20]\n\n2. Кулька 2 (d = 3.0 мм, r = 0.0015 м):\n[calc:f-1793355983382 | row=2 | rhok=11350, rhop=1260, g=9.8, t=6.05, r=0.0015, l=0.20]\n\n3. Кулька 3 (d = 4.0 мм, r = 0.0020 м):\n[calc:f-1793355983382 | row=3 | rhok=11350, rhop=1260, g=9.8, t=3.36, r=0.0020, l=0.20]\n\n2.Розрахунок середнього значення динамічної в'язкості:\n\n[calc:f-1793356885164 | row=1 | eta1=1.41, eta2=1.50, eta3=1.48]\n\n3.Розрахунок абсолютної похибки:\n\n[calc:f-1793358320027 | row=1 | eta=1.41, eta_avg=1.46]\n[calc:f-1793358320027 | row=2 | eta=1.50, eta_avg=1.46]\n[calc:f-1793358320027 | row=3 | eta=1.48, eta_avg=1.46]\n\n4.Розрахунок середньої абсолютної похибки в'язкості:\n\n[calc:f-1793357420335 | row=1 | deta1=0.05, deta2=0.04, deta3=0.02]\n\n5.Розрахунок відносної похибки:\n\n[calc:f-1793359172684 | row=1 | deta=0.04, eta=1.46]\n",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/test1/",
+      "tableHeaders": "№ з/п, 1, 2, 3",
+      "tableRowsCount": 10,
+      "tableParams": "",
+      "tableData": "$\\rho_{кул}$ (кг/м³), 11350\n$\\rho_{рід}$ (кг/м³), 1260\n$r$ (м), 0.0010, 0.0015, 0.0020\n$l$ (м), 0.20, 0.20, 0.20\n$t$ (с), 12.82, 6.05, 3.36\n$\\eta$ (Па·с), 1.48, 1.49, 1.51\n$\\langle \\eta \\rangle$ (Па·с), 1.49\n$\\Delta \\eta$ (Па·с), 0.01, 0.00, 0.02\n$\\langle \\Delta \\eta \\rangle$ (Па·с), 0.01\n$E$ (%), 0.7%",
+      "tableFooter": "η = (1.46 ± 0.04) Па·с, E = 2.74%",
+      "table2Title": "",
+      "table2Params": "",
+      "table2Headers": "",
+      "table2RowsCount": 3,
+      "table2Data": "",
+      "table2Footer": ""
+    },
+    {
+      "id": "lab-1793029313528",
+      "number": "3",
+      "category": "Молекулярна фізика",
+      "title": "ВИЗНАЧЕННЯ УНIВЕРСАЛЬНОЇ ГАЗОВОЇ СТАЛОЇ",
+      "goal": "визначити універсальну газову сталу методом зважування повітря та\nпорівняти одержані дані з теоретичними.",
+      "equipment": " терези, скляна куля, затискач, металевий манометр, термометр, насос Комовського.",
+      "theory": "1.Розрахунок універсальної газової сталої R для кожного досліду:\n\n[calc:f-1793361693226 | row=1 | dp=0.49, dm=0.00059]\n[calc:f-1793361693226 | row=2 | dp=0.69, dm=0.00080]\n[calc:f-1793361693226 | row=3 | dp=0.88, dm=0.00104]\n\n2.Розрахунок середнього значення газової сталої:\n\n[calc:f-1793362010290 | row=1 | R1=8.22, R2=8.54, R3=8.37]\n\n3.Розрахунок абсолютної похибки ΔR для кожного досліду:\n\n[calc:f-1793362247540 | row=1 | R=8.22, R_avg=8.38]\n[calc:f-1793362247540 | row=2 | R=8.54, R_avg=8.38]\n[calc:f-1793362247540 | row=3 | R=8.37, R_avg=8.38]\n\n4.Розрахунок середньої абсолютної похибки:\n\n[calc:f-1793362490545 | row=1 | dR1=0.16, dR2=0.16, dR3=0.00]\n\n5.Розрахунок відносної похибки:\n\n[calc:f-1793362726316 | row=1 | dR_avg=0.11, R_avg=8.38]\n\n",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/test5/index.html",
+      "tableHeaders": "№ з/п, 1, 2, 3",
+      "tableRowsCount": 11,
+      "tableParams": "$\\mu = 0.029\\text{ кг/моль}$ (повітря)",
+      "tableData": "$V$ (м³), 1·10⁻³\n$T$ (К), 293\n$m_1$ (кг), 0.22222\n$m_2$ (кг), 0.22163, 0.22142, 0.22118\n$\\Delta m$ (кг), 0.00059, 0.00080, 0.00104\n$\\Delta p$ (10⁵ Па), 0.49, 0.69, 0.88\n$R$ (Дж/(моль·К)), 8.22, 8.54, 8.38\n$\\langle R \\rangle$ (Дж/(моль·К)), 8.38\n$\\Delta R$ (Дж/(моль·К)), 0.16, 0.16, 0.00\n$\\langle \\Delta R \\rangle$ (Дж/(моль·К)), 0.11\n$E_R$ (%), 1.3",
+      "tableFooter": "",
+      "table2Title": "",
+      "table2Params": "",
+      "table2Headers": "",
+      "table2RowsCount": 3,
+      "table2Data": "",
+      "table2Footer": ""
+    },
+    {
+      "id": "lab-1793029440707",
+      "number": "4",
+      "category": "Молекулярна фізика",
+      "title": "ВИЗНАЧЕННЯ ВІДНОШЕННЯ ТЕПЛОЄМНОСТЕЙ ГАЗУ CP/CV МЕТОДОМ КЛЕМАНА-ДЕЗОРМА",
+      "goal": "визначити показник адіабати повітря методом Клемана-Дезорма, та порівняти\nйого значення з теоретичним.",
+      "equipment": "установка для визначення відношення теплоємностей газу Cp/Cv методом Клемана-Дезорма",
+      "theory": "1.Розрахунок коефіцієнта Пуассона γ для кожного досліду:\n\n[calc:f-1793367816898 | row=1 | H=222, h=58]\n[calc:f-1793367816898 | row=2 | H=224, h=60]\n[calc:f-1793367816898 | row=3 | H=232, h=62]\n[calc:f-1793367816898 | row=4 | H=218, h=56]\n[calc:f-1793367816898 | row=5 | H=236, h=64]\n\n2.Розрахунок середнього значення коефіцієнта Пуассона:\n\n[calc:f-1793368497732 | row=1 | g1=1.35, g2=1.37, g3=1.36, g4=1.35, g5=1.37]\n\n3.Розрахунок абсолютної похибки Δγ для кожного досліду:\n\n[calc:f-1793368675467 | row=1 | g=1.35, g_avg=1.36]\n[calc:f-1793368675467 | row=2 | g=1.37, g_avg=1.36]\n[calc:f-1793368675467 | row=3 | g=1.36, g_avg=1.36]\n[calc:f-1793368675467 | row=4 | g=1.35, g_avg=1.36]\n[calc:f-1793368675467 | row=5 | g=1.37, g_avg=1.36]\n\n4.Розрахунок середньої абсолютної похибки:\n\n[calc:f-1793368923323 | row=1 | dg1=0.01, dg2=0.01, dg3=0.00, dg4=0.01, dg5=0.01]\n\n5.Розрахунок відносної похибки:\n\n[calc:f-1793369122037 | row=1 | dg_avg=0.01, g_avg=1.36]\n\n",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/test3/",
+      "tableHeaders": "№ з/п, 1, 2, 3, 4, 5",
+      "tableRowsCount": 7,
+      "tableParams": "Робочий газ: повітря",
+      "tableData": "$H$ (мм), 222, 224, 232, 218, 236\n$h$ (мм), 58, 60, 62, 56, 64\n$\\gamma$, 1.35, 1.37, 1.36, 1.35, 1.37\n$\\langle \\gamma \\rangle$, 1.36\n$\\Delta \\gamma$, 0.01, 0.01, 0.00, 0.01, 0.01\n$\\langle \\Delta \\gamma \\rangle$, 0.01\n$E$ (%), 0.7",
+      "tableFooter": "",
+      "table2Title": "",
+      "table2Params": "",
+      "table2Headers": "",
+      "table2RowsCount": 3,
+      "table2Data": "",
+      "table2Footer": ""
+    },
+    {
+      "id": "lab-1793029511725",
+      "number": "5",
+      "category": "",
+      "title": "ВИЗНАЧЕННЯ ОПОРУ РЕЗИСТОРА ЗА ДОПОМОГОЮ МІСТКА УІТСТОНА",
+      "goal": "",
+      "equipment": "",
+      "theory": "",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/test4/index.html",
+      "tableHeaders": "",
+      "tableRowsCount": 3
+    },
+    {
+      "id": "lab-1793029591185",
+      "number": "6",
+      "category": "",
+      "title": "ВИЗНАЧЕННЯ ГОРИЗОНТАЛЬНОЇ СКЛАДОВОЇ НАПРУЖЕНОСТІ МАГНІТНОГО ПОЛЯ ЗЕМЛІ ТА СТАЛОЇ ТАНГЕНСГАЛЬВАНОМЕТРА",
+      "goal": "",
+      "equipment": "",
+      "theory": "",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/magnetic/",
+      "tableHeaders": "",
+      "tableRowsCount": 3
+    },
+    {
+      "id": "lab-1793029659733",
+      "number": "7",
+      "category": "",
+      "title": "ВИЗНАЧЕННЯ ІНДУКТИВНОСТІ КОТУШКИ МЕТОДОМ ВИКОРИСТАННЯ ЯВИЩА САМОІНДУКЦІЇ ПРИ ЗАМИКАННІ КОЛА",
+      "goal": "",
+      "equipment": "",
+      "theory": "",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/inductance/",
+      "tableHeaders": "",
+      "tableRowsCount": 3
+    },
+    {
+      "id": "lab-1793029722700",
+      "number": "8",
+      "category": "",
+      "title": "ДОСЛІДЖЕННЯ ОПТИЧНИХ ВЛАСТИВОСТЕЙ І ВИМІРЮВАННЯ ОПТИЧНОЇ СИЛИ СФЕРИЧНИХ ЗБИРАЛЬНИХ І РОЗСІЮВАЛЬНИХ ЛІНЗ",
+      "goal": "",
+      "equipment": "",
+      "theory": "",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/lenses/index.html",
+      "tableHeaders": "",
+      "tableRowsCount": 3
+    },
+    {
+      "id": "lab-1793029779640",
+      "number": "9",
+      "category": "",
+      "title": "ВИЗНАЧЕННЯ ДОВЖИНИ СВІТЛОВОЇ ХВИЛІ ЗА ДОПОМОГОЮ ДИФРАКЦІЙНОЇ ҐРАТКИ",
+      "goal": "",
+      "equipment": "",
+      "theory": "",
+      "formulaIds": [],
+      "simUrl": "https://lab.ter.pp.ua/test2/",
+      "tableHeaders": "",
+      "tableRowsCount": 3
+    },
+    {
+      "id": "lab-1793029844948",
+      "number": "10",
+      "category": "",
+      "title": "ВИЗНАЧЕННЯ СТАЛОЇ ПЛАНКА",
+      "goal": "",
+      "equipment": "",
+      "theory": "",
+      "formulaIds": [],
+      "simUrl": "https://www.vascak.cz/data/android/physicsatschool/template.php?s=opt_fotoefekt&l=ua",
+      "tableHeaders": "",
+      "tableRowsCount": 3
+    }
+  ]
+}

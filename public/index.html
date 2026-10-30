@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Фізичний Портал: Задачі, Лабораторні та Величини</title>
+    
+    <script>
+    window.MathJax = { tex: { inlineMath: [['$', '$']] } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 950px; margin: 0 auto; padding: 15px; background: #f0f2f5; color: #2c3e50; }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-to-admin { background: #28a745; color: white; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: bold; }
+
+        h1 { text-align: center; margin: 0 0 5px 0; font-size: clamp(22px, 5vw, 28px); }
+        .subtitle { text-align: center; color: #6c757d; font-size: 14px; margin-bottom: 15px; }
+
+        .main-modes { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .mode-btn { background: #fff; border: 2px solid #007bff; color: #007bff; padding: 10px 18px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        .mode-btn.active { background: #007bff; color: white; }
+
+        .search-box { display: flex; gap: 8px; margin-bottom: 20px; position: sticky; top: 10px; z-index: 50; }
+        #mainSearch { flex-grow: 1; padding: 14px; font-size: 16px; border: 2px solid #ced4da; border-radius: 10px; outline: none; background: #fff; }
+        .btn-clear { padding: 0 16px; background: #ff4d4d; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+
+        .content-card { background: white; border-radius: 12px; padding: 18px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); cursor: pointer; }
+        .task-card { border-left: 6px solid #ff9800; }
+        .lab-card { border-left: 6px solid #20c997; }
+
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .badge-cat { background: #e7f1ff; color: #007bff; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+        .card-expand-btn { margin-top: 10px; color: #007bff; font-size: 14px; font-weight: 600; display: flex; justify-content: space-between; }
+
+        .card-details { display: none; margin-top: 15px; padding-top: 15px; border-top: 2px dashed #e9ecef; cursor: default; }
+        .content-card.open .card-details { display: block; }
+
+        .phys-layout { display: grid; grid-template-columns: 240px 1fr; gap: 15px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; }
+        @media (max-width: 600px) { .phys-layout { grid-template-columns: 1fr; } }
+        
+        .col-given { border-right: 2px solid #adb5bd; padding-right: 12px; white-space: pre-line; }
+        @media (max-width: 600px) { .col-given { border-right: none; border-bottom: 2px solid #adb5bd; padding-bottom: 12px; } }
+
+        .section-title { font-weight: bold; font-size: 14px; color: #495057; text-transform: uppercase; margin-bottom: 5px; }
+        .find-box { border-top: 2px solid #adb5bd; margin-top: 10px; padding-top: 8px; }
+
+        .interactive-formula-box {
+            background: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 12px 0;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,123,255,0.12);
+            transition: all 0.2s ease;
+        }
+        .interactive-formula-box:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,123,255,0.25); background: #f8fbff; }
+        .if-title { font-size: 13px; font-weight: bold; color: #007bff; text-transform: uppercase; }
+        .if-math { font-size: 20px; margin: 6px 0; }
+        
+        .if-calc-block {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #1b5e20;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        .if-hint { font-size: 12px; color: #007bff; font-weight: bold; margin-top: 4px; }
+
+        .formula-badges-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+        .formula-link-badge { display: inline-flex; align-items: center; gap: 5px; background: #e7f1ff; color: #007bff; border: 1px solid #b8daff; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .formula-link-badge:hover { background: #007bff; color: white; }
+
+        .answer-box { background: #e8f5e9; color: #2e7d32; padding: 10px 14px; border-radius: 6px; font-weight: bold; margin-top: 12px; }
+
+        /* СПЕЦІАЛЬНІ СТИЛІ ТОЧНОЇ ТАБЛИЦІ МЕТОДИЧКИ */
+        .lab-table-wrap { overflow-x: auto; margin: 15px 0; background: white; border-radius: 8px; border: 1px solid #adb5bd; }
+        .lab-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 14px; background: white; }
+        .lab-table th, .lab-table td { border: 1px solid #adb5bd; padding: 8px 6px; vertical-align: middle; }
+        .lab-table th { background: #f8f9fa; font-weight: bold; color: #212529; }
+        
+        .sub-cells-container { display: flex; flex-direction: column; margin: -8px -6px; }
+        .sub-cell-row { border-bottom: 1px solid #adb5bd; padding: 4px 6px; }
+        .sub-cell-row:last-child { border-bottom: none; }
+
+        .cell-synced {
+            background: #e8f5e9 !important;
+            color: #1b5e20 !important;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .vars-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; justify-content: center; }
+        .var-chip { background: white; border: 2px solid #ced4da; padding: 10px 18px; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        .var-chip:hover, .var-chip.active { background: #007bff; color: white; border-color: #007bff; transform: translateY(-2px); }
+
+        .var-info-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 6px solid #6f42c1; box-shadow: 0 4px 10px rgba(0,0,0,0.06); }
+        .var-header-title { font-size: 22px; font-weight: bold; color: #2c3e50; }
+        .var-unit-badge { display: inline-block; background: #f3e8ff; color: #6f42c1; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 14px; margin: 8px 0; }
+
+        .category-group { margin-top: 15px; }
+        .category-group-title { font-size: 16px; font-weight: bold; color: #495057; background: #e9ecef; padding: 6px 12px; border-radius: 6px; margin-bottom: 10px; }
+        .var-formula-card { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+        .task-usage-pill { display: inline-block; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; cursor: pointer; margin-right: 5px; margin-top: 5px; }
+
+        .btn-floating-helper { position: fixed; bottom: 20px; right: 20px; background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 30px; font-size: 15px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,123,255,0.4); cursor: pointer; z-index: 99; }
+        .drawer-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; }
+        .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 90%; max-width: 480px; background: #f4f6f9; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 1001; padding: 20px; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; }
+        .drawer.open { transform: translateX(0); }
+        .drawer-overlay.open { display: block; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-formula-drawer { background: white; border-radius: 8px; padding: 12px; margin-bottom: 10px; border-left: 4px solid #007bff; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <span style="font-size: 13px; color:#666;">Фізичний портал ТНПУ</span>
+        <a href="/admin.html" class="btn-to-admin">⚙️ Адмінка</a>
+    </div>
+
+    <h1>Фізичний Портал</h1>
+    <div class="subtitle">Задачі, лабораторні, формули та каталог фізичних величин</div>
+
+    <div class="main-modes">
+        <button class="mode-btn active" id="btnModeTasks" onclick="switchMode('tasks')">📝 Задачник</button>
+        <button class="mode-btn" id="btnModeLabs" onclick="switchMode('labs')">🔬 Лабораторні роботи</button>
+        <button class="mode-btn" id="btnModeVars" onclick="switchMode('vars')">📏 Фізичні величини</button>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="mainSearch" placeholder="Пошук...">
+        <button class="btn-clear" onclick="clearSearch()">✕</button>
+    </div>
+
+    <div id="contentContainer"></div>
+
+    <button class="btn-floating-helper" onclick="openHelper()">📖 Довідник (Helper)</button>
+
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeHelper()"></div>
+    <div class="drawer" id="helperDrawer">
+        <div class="drawer-header">
+            <h2 style="margin:0; font-size:20px;">📖 Фізичний Helper</h2>
+            <button style="border:none; background:#dee2e6; width:34px; height:34px; border-radius:50%; cursor:pointer;" onclick="closeHelper()">✕</button>
+        </div>
+        <input type="text" id="helperSearch" placeholder="Пошук формули..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        <div id="helperResults" style="margin-top:15px;"></div>
+    </div>
+
+    <script>
+        let currentMode = 'tasks';
+        let formulasDB = [];
+        let tasksDB = [];
+        let labsDB = [];
+        let selectedVarSym = 'a';
+
+        const quantitiesCatalogue = [
+            { sym: "a", name: "Прискорення", unit: "м/с²", desc: "Векторна величина, що показує швидкість зміни швидкості руху тіла." },
+            { sym: "v", name: "Швидкість", unit: "м/с", desc: "Векторна величина, що характеризує стрімкість переміщення та напрямок руху тіла." },
+            { sym: "v0", name: "Початкова швидкість", unit: "м/с", desc: "Швидкість руху тіла в початковий момент спостереження (t = 0)." },
+            { sym: "t", name: "Час", unit: "с (секунда)", desc: "Міра тривалості процесів та інтервалів між подіями." },
+            { sym: "S", name: "Шлях / Переміщення", unit: "м (метр)", desc: "Довжина траєкторії або напрямлений відрізок зміни положення." },
+            { sym: "m", name: "Маса", unit: "кг (кілограм)", desc: "Кількісна міра інертності та гравітаційних властивостей тіла." },
+            { sym: "F", name: "Сила", unit: "Н (Ньютон)", desc: "Векторна міра механічної взаємодії між тілами." },
+            { sym: "M", name: "Обертовий момент (момент сили)", unit: "Н·м", desc: "Міра обертальної дії сили на тверде тіло відносно осі." },
+            { sym: "I", name: "Момент інерції", unit: "кг·м²", desc: "Міра інертності тіла при обертальному русі." },
+            { sym: "ε", name: "Кутове прискорення", unit: "рад/с² (1/с²)", desc: "Швидкість зміни кутової швидкості обертання." },
+            { sym: "r", name: "Радіус / Плече", unit: "м", desc: "Відстань від осі обертання або геометричний радіус." },
+            { sym: "h", name: "Висота", unit: "м", desc: "Відстань по вертикалі від поверхні відліку." },
+            { sym: "g", name: "Прискорення вільного падіння", unit: "м/с² (≈ 9.8 м/с²)", desc: "Прискорення, що надається тілам силою тяжіння." },
+            { sym: "ρ", name: "Густина", unit: "кг/м³", desc: "Маса речовини в одиниці об'єму." }
+        ];
+
+        const mainSearch = document.getElementById('mainSearch');
+        const contentContainer = document.getElementById('contentContainer');
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.getElementById('btnModeTasks').classList.toggle('active', mode === 'tasks');
+            document.getElementById('btnModeLabs').classList.toggle('active', mode === 'labs');
+            document.getElementById('btnModeVars').classList.toggle('active', mode === 'vars');
+
+            if (mode === 'tasks') mainSearch.placeholder = "Пошук задачі (1.12, 'автомобіль')...";
+            else if (mode === 'labs') mainSearch.placeholder = "Пошук лаби (№1, 'Обербек')...";
+            else mainSearch.placeholder = "Пошук величини ('прискорення', 'v', 'сила')...";
+
+            mainSearch.value = '';
+            renderContent();
+        }
+
+        async function loadAllData() {
+            const [f, t, l] = await Promise.all([fetch('/api/formulas'), fetch('/api/tasks'), fetch('/api/labs')]);
+            formulasDB = await f.json();
+            tasksDB = await t.json();
+            labsDB = await l.json();
+            renderContent();
+        }
+
+        // РОЗУМНА ОБРОБКА РОЗРАХУНКІВ (ПІДТРИМКА tbl=1 ТА tbl=2)
+        function processInteractiveCalculations(rawText) {
+            if (!rawText) return { html: '', tableSyncMap: { 1: {}, 2: {} } };
+            let text = rawText;
+            const tableSyncMap = { 1: {}, 2: {} };
+
+            text = text.replace(/\[calc:([a-zA-Z0-9_-]+)\s*\|\s*([^\]]+)\]/g, (match, fId, configStr) => {
+                const f = formulasDB.find(item => item.id === fId);
+                if (!f) return match;
+
+                const parts = configStr.split('|').map(s => s.trim());
+                let targetTable = 1;
+                let rowNumber = null;
+                let paramsStr = '';
+
+                parts.forEach(p => {
+                    if (p.startsWith('tbl=')) targetTable = parseInt(p.replace('tbl=', '').trim()) || 1;
+                    else if (p.startsWith('row=')) rowNumber = parseInt(p.replace('row=', '').trim());
+                    else paramsStr = p;
+                });
+
+                const params = {};
+                paramsStr.split(',').forEach(p => {
+                    const kv = p.split('=');
+                    if (kv.length === 2) params[kv[0].trim()] = parseFloat(kv[1].trim()) || 0;
+                });
+
+                const evalParams = { ...params };
+                for (const [k, val] of Object.entries(params)) {
+                    if (k.length > 1 && !k.includes('_')) evalParams[k[0] + '_' + k.slice(1)] = val;
+                    if (k.includes('_')) evalParams[k.replace('_', '')] = val;
+                }
+
+                let calcResult = null;
+                if (f.mathExpr) {
+                    try {
+                        const cleanExpr = f.mathExpr.replace(/\^/g, '**');
+                        const keys = Object.keys(evalParams);
+                        const vals = Object.values(evalParams);
+                        const fn = new Function(...keys, 'return ' + cleanExpr);
+                        calcResult = Math.round(fn(...vals) * 100) / 100;
+                    } catch(e) { calcResult = '?'; }
+                }
+
+                // Зберігаємо для Таблиці 1 або Таблиці 2!
+                if (rowNumber !== null && calcResult !== null) {
+                    if (!tableSyncMap[targetTable]) tableSyncMap[targetTable] = {};
+                    if (!tableSyncMap[targetTable][rowNumber]) tableSyncMap[targetTable][rowNumber] = {};
+                    tableSyncMap[targetTable][rowNumber][f.resVar || 'res'] = calcResult;
+                }
+
+                let substitutedLatex = (f.substTemplate || f.latex || '').replace(/\$\$/g, '').replace(/}\s*\/\s*{/g, '}{');
+                
+                // Захист команд LaTeX
+                const savedCmds = [];
+                substitutedLatex = substitutedLatex.replace(/\\[a-zA-Z]+/g, m => {
+                    savedCmds.push(m);
+                    return `__LTX_${savedCmds.length - 1}__`;
+                });
+
+                const fullReplacements = [];
+                for (const [k, val] of Object.entries(params)) {
+                    fullReplacements.push({ key: k, val: String(val) });
+                    if (k.length > 1 && !k.includes('_')) fullReplacements.push({ key: k[0] + '_' + k.slice(1), val: String(val) });
+                    if (k.includes('_')) fullReplacements.push({ key: k.replace('_', ''), val: String(val) });
+                }
+                fullReplacements.sort((a, b) => b.key.length - a.key.length);
+
+                for (const item of fullReplacements) {
+                    const reg = new RegExp(`\\b${item.key}\\b`, 'g');
+                    substitutedLatex = substitutedLatex.replace(reg, item.val);
+                    substitutedLatex = substitutedLatex.split(item.key).join(item.val);
+                }
+
+                savedCmds.forEach((cmd, idx) => {
+                    substitutedLatex = substitutedLatex.split(`__LTX_${idx}__`).join(cmd);
+                });
+
+                const resVar = f.resVar || 'Результат';
+                const unit = f.unit ? `\\text{ ${f.unit}}` : '';
+
+                return `
+                    <div class="interactive-formula-box" onclick="event.stopPropagation(); openHelperWithFormula('${f.id}')">
+                        <div class="if-title">${f.name}</div>
+                        <div class="if-math">${f.latex || ''}</div>
+                        <div class="if-calc-block">
+                            $$${resVar} = ${substitutedLatex} = ${calcResult !== null ? calcResult : ''}${unit}$$
+                        </div>
+                        <div class="if-hint">🔍 Розшифровка величин у Довіднику ➔</div>
+                    </div>
+                `;
+            });
+
+            text = text.replace(/\[formula:([a-zA-Z0-9_-]+)\]/g, (match, fId) => {
+                const f = formulasDB.find(item => item.id === fId);
+                return f ? `<div class="interactive-formula-box" onclick="event.stopPropagation(); openHelperWithFormula('${f.id}')"><div class="if-title">${f.name}</div><div class="if-math">${f.latex || ''}</div><div class="if-hint">🔍 Розшифровка величин у Довіднику ➔</div></div>` : match;
+            });
+
+            return { html: text, tableSyncMap: tableSyncMap };
+        }
+
+        // УНІВЕРСАЛЬНА ФУНКЦІЯ ГЕНЕРАЦІЇ БУДЬ-ЯКОЇ ТАБЛИЦІ (Таблиця 1 або Таблиця 2)
+        // УНІВЕРСАЛЬНА ФУНКЦІЯ ГЕНЕРАЦІЇ БУДЬ-ЯКИХ ТАБЛИЦЬ (ЛАБ 1 ТА ЛАБ 2)
+        // УНІВЕРСАЛЬНА ФУНКЦІЯ ГЕНЕРАЦІЇ ТАБЛИЦЬ (ПІДТРИМКА ГОРИЗОНТАЛЬНИХ ТА ВЕРТИКАЛЬНИХ ТАБЛИЦЬ)
+        function buildSingleTableHtml(tNum, tTitle, tParams, tHeaders, tRowsCount, tData, tFooter, syncMapForThisTable) {
+            if (!tHeaders) return '';
+
+            const headersArray = tHeaders.split(',').map(h => h.trim());
+            const headersHtml = headersArray.map(h => `<th>${h}</th>`).join('');
+
+            // Автоматично визначаємо, чи це вертикальна таблиця (де стовпчики це 1, 2, 3)
+            const isVerticalTable = headersArray.slice(1).every(h => !isNaN(h.trim()) || h.includes('Дослід'));
+
+            let paramsTopRow = '';
+            if (tParams) {
+                const pParts = (tParams.includes(';') ? tParams.split(';') : tParams.split(','));
+                const p1 = pParts[0] ? pParts[0].trim() : '';
+                const p2 = pParts[1] ? pParts[1].trim() : '';
+                const pFirstSpan = Math.min(4, Math.max(1, Math.floor(headersArray.length / 2)));
+                const pSecondSpan = Math.max(1, headersArray.length - pFirstSpan);
+
+                paramsTopRow = `
+                    <tr>
+                        <th colspan="${pFirstSpan}" style="text-align:left; background:#fff; font-weight:normal; border:1px solid #adb5bd; padding:8px 12px;">${p1}</th>
+                        <th colspan="${pSecondSpan}" style="text-align:left; background:#fff; font-weight:normal; border:1px solid #adb5bd; padding:8px 12px;">${p2}</th>
+                    </tr>
+                `;
+            }
+
+            const rawInitialRows = (tData || '').split('\n').map(r => r.split(',').map(c => c.trim()));
+            let rowsHtml = '';
+
+                const cleanSymbol = (str) => {
+    if (!str) return '';
+    let s = str.includes('=') ? str.split('=')[0] : str;
+    s = s.split('(')[0].split(',')[0].replace(/\\text\{.*?\}/g, '').replace(/[\$\\\s]/g, '');
+
+    // Прибираємо службові слова langle/rangle
+    const c = s.replace(/langle/gi, '<').replace(/rangle/gi, '>');
+
+    const isAvg = c.includes('<') || c.toLowerCase().includes('avg');
+    const isDelta = c.includes('delta') || c.includes('Delta') || c.includes('Δ') || c.includes('δ');
+
+    // --- А. СЕРЕДНІ ПОХИБКИ <Δ...> ---
+    if (isAvg && isDelta) {
+        if (c.includes('gamma') || c.includes('γ')) return '<Δγ>'; // Лаба 4
+        if (c.includes('R')) return '<ΔR>';                       // Лаба 3
+        if (c.includes('I') || c.includes('i')) return '<ΔI>';         // Лаба 1
+        if (c.includes('M') || c.includes('М')) return '<ΔM>';         // Лаба 1
+        return '<Δη>';                                            // Лаба 2
+    }
+
+    // --- Б. ЗВИЧАЙНІ СЕРЕДНІ ЗНАЧЕННЯ <...> ---
+    if (isAvg) {
+        if (c.includes('gamma') || c.includes('γ')) return '<γ>';  // Лаба 4
+        if (c.includes('R')) return '<R>';                        // Лаба 3
+        if (c.includes('eta') || c.includes('η')) return '<η>';         // Лаба 2
+        return '<t>';                                             // Лаба 1
+    }
+
+    // --- В. АБСОЛЮТНІ ПОХИБКИ ТА РІЗНИЦІ Δ... ---
+    if (isDelta) {
+        if (c.includes('gamma') || c.includes('γ')) return 'Δγ';  // Лаба 4
+        if (c.includes('R')) return 'ΔR';                         // Лаба 3
+        if (c.includes('p') || c.includes('P') || c.includes('п') || c.includes('П')) return 'Δp';
+        if (c.includes('m') || c.includes('м')) return 'Δm';
+        if (c.includes('I') || c.includes('i')) return 'ΔI';
+        if (c.includes('M') || c.includes('М')) return 'ΔM';
+        if (c.includes('eta') || c.includes('η')) return 'Δη';
+    }
+
+    // --- Г. ВІДНОСНІ ПОХИБКИ E ---
+    if (c.includes('E_R') || c.includes('ER') || (c.includes('E') && c.includes('R'))) return 'E_R';
+    if (c === 'Е' || c === 'E' || c === 'е' || c === 'e') return 'E';
+
+    // --- Д. ОКРЕМІ ВЕЛИЧИНИ ---
+    if (c === 'gamma' || c === 'γ') return 'γ';                   // Лаба 4
+    if (c === 'H') return 'H';
+    if (c === 'h') return 'h';
+    if (c === 'varepsilon' || c === 'epsilon' || c === 'eps' || c === 'ε') return 'ε';
+    if (c === 'eta' || c === 'η') return 'η';
+    if (c === 'М' || c === 'M') return 'M';
+    if (c === 'м' || c === 'm') return 'm';
+    if (c === 'I' || c === 'i') return 'I';
+    if (c === 'R') return 'R';
+    if (c === 'r') return 'r';
+
+    return s;
+};
+            for (let r = 1; r <= (tRowsCount || 3); r++) {
+                let rowCols = '';
+                const initialRow = rawInitialRows[r - 1] || [];
+
+                // Якщо рядок загальний (наприклад: "$\rho_{кул}$, 11350") — об'єднуємо комірку на всю ширину
+                // Якщо рядок загальний (об'єднаний) — перевіряємо, чи є для нього авто-розрахунок
+                if (initialRow.length === 2 && headersArray.length > 2) {
+                    let val = initialRow[1];
+                    const rowVar = cleanSymbol(initialRow[0]);
+
+                    // Шукаємо розраховане значення у карті синхронізації
+                    if (syncMapForThisTable) {
+                        for (const expKey of Object.keys(syncMapForThisTable)) {
+                            for (const [varKey, calcVal] of Object.entries(syncMapForThisTable[expKey])) {
+                                if (rowVar === cleanSymbol(varKey)) {
+                                    val = `<span class="cell-synced">${calcVal}</span>`;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    rowCols = `
+                        <td style="font-weight:bold; background:#f8f9fa; text-align:left; padding-left:12px;">${initialRow[0]}</td>
+                        <td colspan="${headersArray.length - 1}" style="font-weight:bold; background:#fff; text-align:center;">${val}</td>
+                    `;
+                } else {
+                    headersArray.forEach((header, colIdx) => {
+                        let cellVal = '';
+
+                        if (colIdx === 0) {
+                            cellVal = (initialRow[0] && isNaN(initialRow[0])) ? initialRow[0] : r;
+                        } else {
+                            const shift = (initialRow[0] && isNaN(initialRow[0])) ? 0 : -1;
+                            cellVal = initialRow[colIdx + shift] || '';
+
+                            if (cellVal.includes('/')) {
+                                const subRows = cellVal.split('/').map(sub => `<div class="sub-cell-row">${sub.trim()}</div>`).join('');
+                                cellVal = `<div class="sub-cells-container">${subRows}</div>`;
+                            }
+
+                            // 🌟 РОЗУМНА СИНХРОНІЗАЦІЯ ДЛЯ ОБОХ ТИПІВ ТАБЛИЦЬ:
+                            if (isVerticalTable) {
+                                // Для Лаб 2: стовпчик це номер досліду (colIdx = 1, 2, 3), а рядок це величина initialRow[0]
+                                const rowVar = cleanSymbol(initialRow[0]);
+                                const expNum = colIdx;
+
+                                if (syncMapForThisTable && syncMapForThisTable[expNum]) {
+                                    for (const [varKey, calcVal] of Object.entries(syncMapForThisTable[expNum])) {
+                                        const targetV = cleanSymbol(varKey);
+                                        if (rowVar === targetV) {
+                                            cellVal = `<span class="cell-synced">${calcVal}</span>`;
+                                        }
+                                    }
+                                }
+                            } else {
+                                // Для Лаб 1: рядок це дослід (r), стовпчик це величина (header)
+                                if (syncMapForThisTable && syncMapForThisTable[r]) {
+                                    for (const [varKey, calcVal] of Object.entries(syncMapForThisTable[r])) {
+                                        const targetH = cleanSymbol(header);
+                                        const targetV = cleanSymbol(varKey);
+                                        if (targetH === targetV) {
+                                            cellVal = `<span class="cell-synced">${calcVal}</span>`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        rowCols += `<td>${cellVal}</td>`;
+                    });
+                }
+                rowsHtml += `<tr>${rowCols}</tr>`;
+            }
+
+            let footerRow = '';
+            if (tFooter) {
+                const fFirstSpan = Math.min(5, Math.max(1, headersArray.length - 2));
+                const fSecondSpan = Math.max(1, headersArray.length - fFirstSpan);
+                footerRow = `
+                    <tr>
+                        <td colspan="${fFirstSpan}" style="text-align:center; font-weight:bold; background:#f8f9fa;">Середнє значення:</td>
+                        <td colspan="${fSecondSpan}" style="font-weight:bold; background:#f8f9fa;">${tFooter}</td>
+                    </tr>
+                `;
+            }
+
+            return `
+                <div style="font-weight:bold; font-size:15px; margin: 15px 0 6px 0; color:#1e293b;">${tTitle || `Таблиця ${tNum}`}</div>
+                <div class="lab-table-wrap">
+                    <table class="lab-table">
+                        <thead>${paramsTopRow}<tr>${headersHtml}</tr></thead>
+                        <tbody>${rowsHtml}${footerRow}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+        function jumpToTask(taskNumber) {
+            switchMode('tasks');
+            setTimeout(() => {
+                const allCards = document.querySelectorAll('.task-card');
+                allCards.forEach(c => {
+                    if (c.innerHTML.includes(`Задача № ${taskNumber}`)) {
+                        c.classList.add('open');
+                        c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }, 100);
+        }
+
+        function renderContent() {
+            contentContainer.innerHTML = '';
+            const q = mainSearch.value.toLowerCase().trim();
+
+            if (currentMode === 'tasks') {
+                const filtered = tasksDB.filter(t => t.number.toLowerCase().includes(q) || t.text.toLowerCase().includes(q) || t.category.toLowerCase().includes(q));
+                if (filtered.length === 0) { contentContainer.innerHTML = '<p style="text-align:center; color:#888;">Задач не знайдено.</p>'; return; }
+
+                filtered.forEach(task => {
+                    const card = document.createElement('div');
+                    card.className = 'content-card task-card';
+                    card.onclick = () => card.classList.toggle('open');
+
+                    const badgesHtml = (task.formulaIds || []).map(id => {
+                        const f = formulasDB.find(item => item.id === id);
+                        return `<button class="formula-link-badge" onclick="event.stopPropagation(); openHelperWithFormula('${id}')">🔍 ${f ? f.name : "Формула"}</button>`;
+                    }).join('');
+
+                    const processed = processInteractiveCalculations(task.solution);
+
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span style="font-size:18px; font-weight:bold; color:#d97706;">Задача № ${task.number}</span>
+                            <span class="badge-cat">${task.category}</span>
+                        </div>
+                        <div style="font-size:15px; line-height:1.5;">${task.text}</div>
+                        <div class="card-expand-btn"><span>Переглянути розв'язок, Дано і формули</span><span>▼</span></div>
+
+                        <div class="card-details" onclick="event.stopPropagation()">
+                            <div class="phys-layout">
+                                <div class="col-given">
+                                    <div class="section-title">Дано:</div>
+                                    <div>${task.given || '—'}</div>
+                                    ${task.si ? `<div class="section-title" style="margin-top:8px;">СІ:</div><div style="color:#007bff;">${task.si}</div>` : ''}
+                                    <div class="find-box"><div class="section-title">Знайти:</div><div><b>${task.find || '—'}</b></div></div>
+                                </div>
+                                <div>
+                                    <div class="section-title">Формули (впорядковано):</div>
+                                    <div class="formula-badges-wrap">${badgesHtml || '<span style="color:#888; font-size:13px;">Не прикріплено</span>'}</div>
+                                    <div class="section-title" style="margin-top:12px;">Розв'язання:</div>
+                                    <div style="white-space:pre-line; line-height:1.7; font-size:15px;">${processed.html}</div>
+                                    <div class="answer-box">Відповідь: ${task.answer || ''}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    contentContainer.appendChild(card);
+                });
+            } else if (currentMode === 'labs') {
+                const filtered = labsDB.filter(l => l.number.toLowerCase().includes(q) || l.title.toLowerCase().includes(q) || l.category.toLowerCase().includes(q));
+                if (filtered.length === 0) { contentContainer.innerHTML = '<p style="text-align:center; color:#888;">Лабораторних не знайдено.</p>'; return; }
+
+                filtered.forEach(lab => {
+                    const card = document.createElement('div');
+                    card.className = 'content-card lab-card';
+                    card.onclick = () => card.classList.toggle('open');
+
+                    const badgesHtml = (lab.formulaIds || []).map(id => {
+                        const f = formulasDB.find(item => item.id === id);
+                        return `<button class="formula-link-badge" onclick="event.stopPropagation(); openHelperWithFormula('${id}')">🔍 ${f ? f.name : "Формула"}</button>`;
+                    }).join('');
+
+                    // Обробляємо розрахунки і розділяємо синхронізацію для Таблиці 1 і Таблиці 2
+                    const processed = processInteractiveCalculations(lab.theory);
+                    const syncMapTbl1 = (processed.tableSyncMap && processed.tableSyncMap[1]) ? processed.tableSyncMap[1] : {};
+                    const syncMapTbl2 = (processed.tableSyncMap && processed.tableSyncMap[2]) ? processed.tableSyncMap[2] : {};
+
+                    // ГЕНЕРУЄМО ТАБЛИЦЮ 1
+                    const table1Html = buildSingleTableHtml(
+                        1, 
+                        "Таблиця 1. Залежність кутового прискорення від моменту сили", 
+                        lab.tableParams, 
+                        lab.tableHeaders, 
+                        lab.tableRowsCount, 
+                        lab.tableData, 
+                        lab.tableFooter, 
+                        syncMapTbl1
+                    );
+
+                    // ГЕНЕРУЄМО ТАБЛИЦЮ 2 (ЯКЩО ВОНА ЗАДАНА В АДМІНЦІ!)
+                    const table2Html = lab.table2Headers ? buildSingleTableHtml(
+                        2, 
+                        lab.table2Title || "Таблиця 2", 
+                        lab.table2Params, 
+                        lab.table2Headers, 
+                        lab.table2RowsCount, 
+                        lab.table2Data, 
+                        lab.table2Footer, 
+                        syncMapTbl2
+                    ) : '';
+
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span style="font-size:18px; font-weight:bold; color:#0f766e;">Лабораторна робота № ${lab.number}</span>
+                            <span class="badge-cat" style="background:#ccfbf1; color:#0f766e;">${lab.category}</span>
+                        </div>
+                        <div style="font-size:17px; font-weight:600; color:#1e293b; margin:6px 0;">${lab.title}</div>
+                        <div class="card-expand-btn"><span>Переглянути теорію, формули та таблиці</span><span>▼</span></div>
+
+                        <div class="card-details" onclick="event.stopPropagation()">
+                            <div style="background:#f8f9fa; padding:15px; border-radius:8px; border:1px solid #dee2e6;">
+                                <div style="margin-bottom:8px;"><b>🎯 Мета роботи:</b> ${lab.goal || '—'}</div>
+                                <div style="margin-bottom:12px;"><b>🧰 Обладнання:</b> ${lab.equipment || '—'}</div>
+                                ${lab.simUrl ? `<div><a href="${lab.simUrl}" target="_blank" style="display:inline-block; background:#6366f1; color:white; padding:8px 16px; border-radius:6px; text-decoration:none; font-weight:bold; margin-bottom:10px;">🎮 Відкрити 3D-модель (Симуляцію) ↗</a></div>` : ''}
+
+                                <div class="section-title">Формули (впорядковано):</div>
+                                <div class="formula-badges-wrap">${badgesHtml || '<span style="color:#888; font-size:13px;">Не прикріплено</span>'}</div>
+
+                                <div class="section-title" style="margin-top:14px;">📊 Таблиці вимірювань:</div>
+                                ${table1Html}
+                                ${table2Html}
+
+                                <div class="section-title" style="margin-top:14px;">📖 Теоретичні відомості та розрахунки:</div>
+                                <div style="white-space:pre-line; line-height:1.7; font-size:15px; background:white; padding:12px; border-radius:6px; border:1px solid #e9ecef;">${processed.html}</div>
+                            </div>
+                        </div>
+                    `;
+                    contentContainer.appendChild(card);
+                });
+            } else if (currentMode === 'vars') {
+                const filteredVars = quantitiesCatalogue.filter(qItem => 
+                    qItem.name.toLowerCase().includes(q) || 
+                    qItem.sym.toLowerCase().includes(q) || 
+                    qItem.desc.toLowerCase().includes(q)
+                );
+
+                const chipsHtml = filteredVars.map(v => `
+                    <button class="var-chip ${v.sym === selectedVarSym ? 'active' : ''}" onclick="selectVariable('${v.sym}')">
+                        $${v.sym}$
+                    </button>
+                `).join('');
+
+                const currentVar = quantitiesCatalogue.find(v => v.sym === selectedVarSym) || quantitiesCatalogue[0];
+
+                const matchedFormulas = formulasDB.filter(f => {
+                    const inVars = (f.vars || []).some(v => v.sym && v.sym.includes(currentVar.sym));
+                    const inLatex = f.latex && f.latex.includes(currentVar.sym);
+                    const inSymbols = f.symbols && f.symbols.toLowerCase().includes(currentVar.sym.toLowerCase());
+                    return inVars || inLatex || inSymbols;
+                });
+
+                const categoriesMap = {};
+                matchedFormulas.forEach(f => {
+                    const cat = f.category || "Загальні";
+                    if (!categoriesMap[cat]) categoriesMap[cat] = [];
+                    categoriesMap[cat].push(f);
+                });
+
+                let formulasListHtml = '';
+                if (Object.keys(categoriesMap).length === 0) {
+                    formulasListHtml = '<p style="color:#888;">Для цієї величини формул у базі поки немає.</p>';
+                } else {
+                    for (const [catName, fList] of Object.entries(categoriesMap)) {
+                        const catCards = fList.map(f => {
+                            const usedTasks = tasksDB.filter(t => 
+                                (t.formulaIds && t.formulaIds.includes(f.id)) || 
+                                (t.solution && t.solution.includes(f.id))
+                            );
+
+                            const taskPills = usedTasks.map(t => `
+                                <span class="task-usage-pill" onclick="jumpToTask('${t.number}')">
+                                    📝 Задача № ${t.number} ➔
+                                </span>
+                            `).join('');
+
+                            return `
+                                <div class="var-formula-card">
+                                    <div style="font-weight:bold; font-size:15px; color:#0056b3;">${f.name}</div>
+                                    <div style="font-size:20px; text-align:center; margin:8px 0;">${f.latex || ''}</div>
+                                    <div style="font-size:13px; color:#555; margin-bottom:6px;"><b>Суть:</b> ${f.description || ''}</div>
+                                    
+                                    <div style="margin-top:8px; border-top:1px dashed #ccc; padding-top:6px;">
+                                        <b style="font-size:12px; color:#6c757d;">📌 ВИКОРИСТОВУЄТЬСЯ В ЗАДАЧАХ:</b><br>
+                                        ${taskPills || '<span style="font-size:12px; color:#888;">Поки не прив\'язана до задач</span>'}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+
+                        formulasListHtml += `
+                            <div class="category-group">
+                                <div class="category-group-title">📂 Розділ: ${catName}</div>
+                                ${catCards}
+                            </div>
+                        `;
+                    }
+                }
+
+                contentContainer.innerHTML = `
+                    <div class="vars-grid">${chipsHtml}</div>
+                    <div class="var-info-card">
+                        <div class="var-header-title">Величина: $${currentVar.sym}$ — ${currentVar.name}</div>
+                        <div class="var-unit-badge">Одиниці вимірювання (СІ): ${currentVar.unit}</div>
+                        <div style="font-size:15px; line-height:1.6; color:#495057;">${currentVar.desc}</div>
+                    </div>
+                    <h3 style="margin-bottom:5px;">📐 Формули з цією величиною (за розділами):</h3>
+                    ${formulasListHtml}
+                `;
+            }
+
+            if (window.MathJax && window.MathJax.typesetPromise) MathJax.typesetPromise();
+        }
+
+        function selectVariable(sym) {
+            selectedVarSym = sym;
+            renderContent();
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+        }
+
+        mainSearch.addEventListener('input', renderContent);
+        function clearSearch() { mainSearch.value = ''; renderContent(); }
+
+        const helperDrawer = document.getElementById('helperDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+        const helperSearch = document.getElementById('helperSearch');
+        const helperResults = document.getElementById('helperResults');
+
+        function openHelper() { helperDrawer.classList.add('open'); drawerOverlay.classList.add('open'); displayHelper(formulasDB); }
+        function closeHelper() { helperDrawer.classList.remove('open'); drawerOverlay.classList.remove('open'); }
+
+        function openHelperWithFormula(id) {
+            openHelper();
+            const target = formulasDB.find(f => f.id === id);
+            if (target) { helperSearch.value = target.name; displayHelper([target]); }
+        }
+
+        function displayHelper(list) {
+            helperResults.innerHTML = list.map(f => `
+                <div class="card-formula-drawer">
+                    <div style="font-weight:bold; font-size:15px; color:#2c3e50;">${f.name}</div>
+                    <div style="font-size:18px; text-align:center; margin:6px 0;">${f.latex || ''}</div>
+                    <div style="font-size:13px; color:#555; background:#f8f9fa; padding:6px; border-radius:4px; margin-bottom:6px;"><b>Суть:</b> ${f.description || ''}</div>
+                    <div style="font-size:12px; font-weight:bold; color:#777;">ВЕЛИЧИНИ:</div>
+                    <ul style="padding-left:15px; margin:4px 0;">${(f.vars || []).map(v => `<li style="font-size:13px;"><strong>${v.sym}</strong> — ${v.text}</li>`).join('')}</ul>
+                </div>
+            `).join('') || '<p style="color:#888; font-size:13px; text-align:center;">Формул не знайдено</p>';
+            if (window.MathJax && window.MathJax.typesetPromise) MathJax.typesetPromise();
+        }
+
+        helperSearch.addEventListener('input', () => {
+            const q = helperSearch.value.toLowerCase().trim();
+            displayHelper(formulasDB.filter(f => f.name.toLowerCase().includes(q) || f.symbols.toLowerCase().includes(q)));
+        });
+
+        loadAllData();
+    </script>
+</body>
+</html>

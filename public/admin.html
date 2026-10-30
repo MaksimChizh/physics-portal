@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адмінка Фізичного Порталу</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 900px; margin: 15px auto; padding: 15px; background: #f4f6f9; color: #333; }
+        .nav-back a { color: #007bff; text-decoration: none; font-weight: bold; font-size: 15px; }
+
+        .tabs { display: flex; gap: 8px; margin: 15px 0; border-bottom: 2px solid #dee2e6; padding-bottom: 10px; overflow-x: auto; }
+        .tab-btn { background: #e2e6ea; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; white-space: nowrap; }
+        .tab-btn.active { background: #007bff; color: white; }
+
+        .panel { background: white; padding: 22px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #495057; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        input:focus, textarea:focus, select:focus { border-color: #007bff; outline: none; }
+
+        .checkbox-box { max-height: 180px; overflow-y: auto; background: #fff; border: 1px solid #ced4da; border-radius: 6px; padding: 8px; }
+        .cb-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 13px; }
+        .order-input { width: 45px !important; padding: 4px !important; text-align: center; border: 1px solid #adb5bd; border-radius: 4px; }
+
+        .calc-insert-bar { background: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; border-radius: 8px; margin-bottom: 8px; }
+        .calc-insert-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .btn-insert-calc { background: #2e7d32; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; font-size: 13px; cursor: pointer; }
+
+        .insert-bar { display: flex; gap: 8px; background: #e7f1ff; padding: 8px; border-radius: 6px; margin-bottom: 8px; align-items: center; }
+        .btn-insert { background: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap; }
+
+        .btn-submit { background: #28a745; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; }
+        .btn-cancel { background: #6c757d; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 14px; width: 100%; cursor: pointer; margin-top: 6px; display: none; }
+
+        .item-row { background: #f8f9fa; border: 1px solid #dee2e6; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-action { padding: 6px 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .btn-edit { background: #ffc107; color: #000; margin-right: 5px; }
+        .btn-delete { background: #dc3545; color: #fff; }
+
+        .var-admin-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .var-admin-table th, .var-admin-table td { border: 1px solid #dee2e6; padding: 10px; text-align: left; font-size: 14px; }
+        .var-admin-table th { background: #f1f3f5; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-back"><a href="/">⬅ Повернутися на сайт</a></div>
+
+    <div class="tabs">
+        <button type="button" class="tab-btn active" id="tabBtn1" onclick="showTab(1)">📝 Задачі</button>
+        <button type="button" class="tab-btn" id="tabBtn2" onclick="showTab(2)">🔬 Лабораторні роботи</button>
+        <button type="button" class="tab-btn" id="tabBtn3" onclick="showTab(3)">📐 Довідник формул</button>
+        <button type="button" class="tab-btn" id="tabBtn4" onclick="showTab(4)">📏 Довідник величин</button>
+    </div>
+
+    <!-- 1. ЗАДАЧІ -->
+    <div id="panel1" class="panel" style="display: block;">
+        <h2 id="taskFormHeader" style="margin-top:0;">Додати задачу</h2>
+        <div class="form-group"><label>Номер:</label><input type="text" id="t_num" placeholder="напр: 1.12"></div>
+        <div class="form-group"><label>Категорія:</label><input type="text" id="t_cat" placeholder="Механіка / Кінематика"></div>
+        <div class="form-group"><label>Умова:</label><textarea id="t_text" rows="3"></textarea></div>
+        <div class="form-group"><label>Дано:</label><textarea id="t_given" rows="3" placeholder="$t$ = 10 с&#10;$v_0$ = 0&#10;$v$ = 36 км/год"></textarea></div>
+        <div class="form-group"><label>СІ:</label><input type="text" id="t_si" placeholder="$v$ = 10 м/с"></div>
+        <div class="form-group"><label>Знайти:</label><textarea id="t_find" rows="2" placeholder="$a$ — ?&#10;$S$ — ?"></textarea></div>
+
+        <div class="form-group" style="background:#e7f1ff; padding:10px; border-radius:8px;">
+            <label style="color:#0056b3;">🔗 Прив'язати формули та вказати їх порядок (№):</label>
+            <div class="checkbox-box" id="taskFormulasBox"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Повне розв'язання:</label>
+            <div class="insert-bar">
+                <span style="font-size:12px; font-weight:bold; color:#0056b3;">Вставка формули:</span>
+                <select id="t_formula_insert_select" style="padding:6px; font-size:13px;"></select>
+                <button type="button" class="btn-insert" onclick="insertFormulaTag('t_solve', 't_formula_insert_select')">➕ Вставити (без чисел)</button>
+            </div>
+
+            <div class="calc-insert-bar">
+                <div style="font-size:12px; font-weight:bold; color:#1b5e20; margin-bottom:4px;">⚡ Автоматичний обрахунок (з числами з Дано):</div>
+                <div class="calc-insert-row">
+                    <select id="t_calc_formula_select" style="padding:6px; font-size:13px; flex: 1;"></select>
+                    <input type="text" id="t_calc_params" placeholder="числа: v=2, t=4" style="padding:6px; font-size:13px; width: 180px;">
+                    <button type="button" class="btn-insert-calc" onclick="insertAutoCalcTag('t_solve', 't_calc_formula_select', 't_calc_params')">⚡ Вставити авто-розрахунок</button>
+                </div>
+            </div>
+
+            <textarea id="t_solve" rows="7"></textarea>
+        </div>
+
+        <div class="form-group"><label>Відповідь:</label><input type="text" id="t_ans"></div>
+
+        <button type="button" class="btn-submit" id="taskSubmitBtn" onclick="saveTask()">💾 Зберегти задачу</button>
+        <button type="button" class="btn-cancel" id="taskCancelBtn" onclick="resetTaskForm()">Скасувати редагування</button>
+
+        <h3 style="margin-top:25px; border-top:1px solid #ddd; padding-top:15px;">📋 Усі задачі</h3>
+        <div id="tasksList"></div>
+    </div>
+
+    <!-- 2. ЛАБОРАТОРНІ (ПІДТРИМКА ТАБЛИЦІ 1 ТА ТАБЛИЦІ 2) -->
+    <div id="panel2" class="panel" style="display: none;">
+        <h2 id="labFormHeader" style="margin-top:0;">Додати лабораторну роботу</h2>
+        <div class="form-group"><label>Номер роботи:</label><input type="text" id="l_num" placeholder="напр: 1"></div>
+        <div class="form-group"><label>Категорія:</label><input type="text" id="l_cat" placeholder="Механіка"></div>
+        <div class="form-group"><label>Назва роботи:</label><input type="text" id="l_title"></div>
+        <div class="form-group"><label>Мета роботи:</label><textarea id="l_goal" rows="2"></textarea></div>
+        <div class="form-group"><label>Обладнання:</label><input type="text" id="l_equip"></div>
+        <div class="form-group" style="background:#f0fdf4; padding:10px; border-radius:8px; border:1px solid #bbf7d0;">
+            <label style="color:#166534;">🌐 Посилання на 3D-модель (симуляцію):</label>
+            <input type="text" id="l_sim_url" placeholder="/models/oberbek/index.html">
+        </div>
+
+        <div class="form-group" style="background:#e7f1ff; padding:10px; border-radius:8px;">
+            <label style="color:#0056b3;">🔗 Формули лабораторної та їх порядок (№):</label>
+            <div class="checkbox-box" id="labFormulasBox"></div>
+        </div>
+
+        <!-- 📊 ТАБЛИЦЯ 1 -->
+        <div class="form-group" style="background:#fef3c7; padding:12px; border-radius:8px; border:1px solid #fde68a; margin-bottom:15px;">
+            <label style="color:#92400e; font-size:15px; font-weight:bold;">📊 Таблиця 1 (Завдання А):</label>
+            
+            <label style="font-weight:normal; font-size:12px; margin-top:4px;">Параметри над таблицею ($r_{шк}$ та $h$):</label>
+            <input type="text" id="l_tbl_params" placeholder="$r_{шк} = D_{шківа}/2 = 0.0275\text{ м}$, $h = 0.71\text{ м}$">
+
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Заголовки колонок через кому:</label>
+            <input type="text" id="l_tbl_headers" placeholder="№ з/п, $m$ (кг), $t$ (с), $\langle t \rangle$ (с), $\varepsilon = \frac{2h}{\langle t \rangle^2 r_{шк}}$, $M$ (Н·м), $I = \frac{M}{\varepsilon}$ (кг·м²), $\Delta I$ (кг·м²), $E$ (%)">
+            
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Кількість рядків дослідів:</label>
+            <input type="number" id="l_tbl_rows" value="3" min="1">
+            
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Дані дослідів (час через /):</label>
+            <textarea id="l_tbl_data" rows="3" placeholder="0.59, 10.47 / 10.38 / 10.19&#10;0.79, 8.97 / 9.07 / 9.10&#10;0.99, 7.90 / 7.73 / 7.98"></textarea>
+
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Рядок «Середнє значення» внизу:</label>
+            <input type="text" id="l_tbl_footer" placeholder="<I> = 0.33 кг·м², <ΔI> = 0.01 кг·м², E = 3.1%">
+        </div>
+
+        <!-- 📊 ТАБЛИЦЯ 2 (НОВА!) -->
+        <div class="form-group" style="background:#e0f2fe; padding:12px; border-radius:8px; border:1px solid #bae6fd; margin-bottom:15px;">
+            <label style="color:#0369a1; font-size:15px; font-weight:bold;">📊 Таблиця 2 (Завдання Б, якщо є):</label>
+
+            <label style="font-weight:normal; font-size:12px; margin-top:4px;">Назва другої таблиці:</label>
+            <input type="text" id="l_tbl2_title" placeholder="Таблиця 2. Дослідження залежності моменту інерції від положення тягарців">
+            
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Параметри над Таблицею 2 ($m=$ та $h=$):</label>
+            <input type="text" id="l_tbl2_params" placeholder="$m = 0.59\text{ кг}$, $h = 0.71\text{ м}$">
+
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Заголовки колонок через кому:</label>
+            <input type="text" id="l_tbl2_headers" placeholder="№ з/п, $t$ (с), $\langle t \rangle$ (с), $\varepsilon$ (1/с²), $I$ (кг·м²), $M$ (Н·м), $\Delta M$ (Н·м), $E$ (%)">
+            
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Кількість рядків дослідів:</label>
+            <input type="number" id="l_tbl2_rows" value="3" min="1">
+            
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Дані дослідів Таблиці 2 (першим пишіть текст рядка, далі час через /):</label>
+            <textarea id="l_tbl2_data" rows="4" placeholder="Тягарці на кінцях стержня, 10.47 / 10.38 / 10.19&#10;Тягарці на середині стержня, 7.80 / 7.75 / 7.85&#10;Тягарці біля шківа, 5.10 / 5.15 / 5.05"></textarea>
+
+            <label style="font-weight:normal; font-size:12px; margin-top:8px;">Рядок «Середнє значення» для Таблиці 2:</label>
+            <input type="text" id="l_tbl2_footer" placeholder="<M> = 0.16 Н·м, <ΔM> = 0.01 Н·м, E = 3.0%">
+        </div>
+
+        <!-- РОЗРАХУНКИ -->
+        <div class="form-group">
+            <label>Теоретичні відомості, порядок роботи та розрахунки:</label>
+
+            <div class="calc-insert-bar">
+                <div style="font-size:12px; font-weight:bold; color:#1b5e20; margin-bottom:4px;">⚡ Авто-розрахунок (вказати для якої таблиці та рядка):</div>
+                <div class="calc-insert-row">
+                    <select id="l_calc_tbl_select" style="padding:6px; font-size:13px; width:120px;">
+                        <option value="1">Таблиця 1</option>
+                        <option value="2">Таблиця 2</option>
+                    </select>
+                    <select id="l_calc_formula_select" style="padding:6px; font-size:13px; flex: 1;"></select>
+                    <input type="number" id="l_calc_row" value="1" min="1" max="15" title="Номер рядка" style="width: 60px; padding:6px; font-size:13px;">
+                    <input type="text" id="l_calc_params" placeholder="числа: h=0.71, t=10.35, r=0.0275" style="padding:6px; font-size:13px; width: 200px;">
+                    <button type="button" class="btn-insert-calc" onclick="insertLabAutoCalcTag()">⚡ Внести розрахунок</button>
+                </div>
+            </div>
+
+            <textarea id="l_theory" rows="8"></textarea>
+        </div>
+
+        <button type="button" class="btn-submit" id="labSubmitBtn" onclick="saveLab()">💾 Зберегти лабораторну</button>
+        <button type="button" class="btn-cancel" id="labCancelBtn" onclick="resetLabForm()">Скасувати редагування</button>
+
+        <h3 style="margin-top:25px; border-top:1px solid #ddd; padding-top:15px;">📋 Усі лабораторні роботи</h3>
+        <div id="labsList"></div>
+    </div>
+
+    <!-- 3. ДОВІДНИК ФОРМУЛ -->
+    <div id="panel3" class="panel" style="display: none;">
+        <h2 id="formulaFormHeader" style="margin-top:0;">Додати формулу в Довідник</h2>
+        <div class="form-group"><label>Назва формули:</label><input type="text" id="f_name" placeholder="напр: Прискорення"></div>
+        <div class="form-group"><label>Категорія:</label><input type="text" id="f_cat" placeholder="Механіка"></div>
+        <div class="form-group"><label>LaTeX вигляд ($$):</label><input type="text" id="f_latex" placeholder="$$a = \frac{v - v_0}{t}$$"></div>
+        <div class="form-group"><label>Ключові слова пошуку:</label><input type="text" id="f_sym" placeholder="прискорення"></div>
+        <div class="form-group"><label>Суть (опис):</label><textarea id="f_desc" rows="2"></textarea></div>
+        <div class="form-group"><label>Величини (символ = опис):</label><textarea id="f_vars" rows="3"></textarea></div>
+
+        <div style="background:#e8f5e9; padding:12px; border-radius:8px; border:1px solid #c8e6c9; margin-bottom:12px;">
+            <label style="color:#1b5e20;">⚙️ Правило для автоматичного розрахунку:</label>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:6px;">
+                <div><label style="font-weight:normal; font-size:12px;">Шукана величина (зліва):</label><input type="text" id="f_res_var" placeholder="напр: a або M або I"></div>
+                <div><label style="font-weight:normal; font-size:12px;">Одиниці вимірювання:</label><input type="text" id="f_unit" placeholder="напр: м/с² або Н·м"></div>
+            </div>
+            <div style="margin-top:6px;">
+                <label style="font-weight:normal; font-size:12px;">Математичний вираз (як рахувати):</label>
+                <input type="text" id="f_math_expr" placeholder="наприклад: (v - v0) / t">
+            </div>
+            <div style="margin-top:6px;">
+                <label style="font-weight:normal; font-size:12px;">Шаблон підстановки чисел (LaTeX):</label>
+                <input type="text" id="f_subst_template" placeholder="наприклад: \frac{v - v_0}{t}">
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" id="formulaSubmitBtn" style="background:#007bff;" onclick="saveFormula()">💾 Зберегти формулу</button>
+        <button type="button" class="btn-cancel" id="formulaCancelBtn" onclick="resetFormulaForm()">Скасувати редагування</button>
+
+        <h3 style="margin-top:25px; border-top:1px solid #ddd; padding-top:15px;">📋 Усі формули в Довіднику</h3>
+        <div id="formulasAdminList"></div>
+    </div>
+
+    <!-- 4. ДОВІДНИК ВЕЛИЧИН -->
+    <div id="panel4" class="panel" style="display: none;">
+        <h2 style="margin-top:0;">📏 Довідник фізичних величин</h2>
+        <table class="var-admin-table">
+            <thead><tr><th>Символ</th><th>Назва</th><th>СІ</th><th>Фізичний зміст</th></tr></thead>
+            <tbody id="quantitiesAdminList"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function showTab(n) {
+            for (let i = 1; i <= 4; i++) {
+                const p = document.getElementById('panel' + i);
+                const b = document.getElementById('tabBtn' + i);
+                if (p) p.style.display = (i === n) ? 'block' : 'none';
+                if (b) b.classList.toggle('active', i === n);
+            }
+        }
+
+        let allFormulas = [];
+        let allTasks = [];
+        let allLabs = [];
+        let editingTaskId = null;
+        let editingLabId = null;
+        let editingFormulaId = null;
+
+        const defaultQuantities = [
+            { sym: "a", name: "Прискорення", unit: "м/с²", desc: "Векторна величина зміни швидкості." },
+            { sym: "v", name: "Швидкість", unit: "м/с", desc: "Стрімкість переміщення та напрямок руху." },
+            { sym: "v0", name: "Початкова швидкість", unit: "м/с", desc: "Швидкість руху тіла в момент t = 0." },
+            { sym: "t", name: "Час", unit: "с (секунда)", desc: "Тривалість процесів та інтервалів." },
+            { sym: "S", name: "Шлях / Переміщення", unit: "м (метр)", desc: "Довжина траєкторії руху тіла." },
+            { sym: "m", name: "Маса", unit: "кг", desc: "Кількісна міра інертності тіла." },
+            { sym: "F", name: "Сила", unit: "Н (Ньютон)", desc: "Міра механічної взаємодії між тілами." },
+            { sym: "M", name: "Обертовий момент", unit: "Н·м", desc: "Обертальна дія сили відносно осі." },
+            { sym: "I", name: "Момент інерції", unit: "кг·м²", desc: "Міра інертності при обертанні." },
+            { sym: "ε", name: "Кутове прискорення", unit: "1/с² (рад/с²)", desc: "Швидкість зміни кутової швидкості." },
+            { sym: "h", name: "Висота", unit: "м", desc: "Відстань по вертикалі." },
+            { sym: "g", name: "Прискорення вільного падіння", unit: "м/с² (≈ 9.8 м/с²)", desc: "Прискорення сили тяжіння." },
+            { sym: "ρ", name: "Густина", unit: "кг/м³", desc: "Маса в одиниці об'єму." }
+        ];
+
+        function renderQuantitiesAdmin() {
+            const tbody = document.getElementById('quantitiesAdminList');
+            if (tbody) {
+                tbody.innerHTML = defaultQuantities.map(q => `
+                    <tr><td><b>$${q.sym}$</b></td><td><b>${q.name}</b></td><td><span style="color:#6f42c1; font-weight:bold;">${q.unit}</span></td><td>${q.desc}</td></tr>
+                `).join('');
+            }
+        }
+
+        async function loadFormulas() {
+            try {
+                const res = await fetch('/api/formulas');
+                allFormulas = await res.json();
+                
+                const fillBox = (boxId, prefix) => {
+                    const box = document.getElementById(boxId);
+                    if (!box) return;
+                    box.innerHTML = allFormulas.map((f, idx) => `
+                        <div class="cb-item">
+                            <input type="checkbox" id="${prefix}_cb_${f.id}" value="${f.id}">
+                            <input type="number" id="${prefix}_ord_${f.id}" class="order-input" value="${idx + 1}" title="Порядок">
+                            <label for="${prefix}_cb_${f.id}" style="cursor:pointer; margin:0;"><b>${f.name}</b> (${f.category})</label>
+                        </div>
+                    `).join('');
+                };
+                fillBox('taskFormulasBox', 't');
+                fillBox('labFormulasBox', 'l');
+
+                const fillSelect = (selectId) => {
+                    const sel = document.getElementById(selectId);
+                    if (!sel) return;
+                    sel.innerHTML = allFormulas.map(f => `<option value="${f.id}">${f.name}</option>`).join('');
+                };
+                fillSelect('t_formula_insert_select');
+                fillSelect('t_calc_formula_select');
+                fillSelect('l_calc_formula_select');
+
+                const list = document.getElementById('formulasAdminList');
+                if (list) {
+                    list.innerHTML = allFormulas.map(f => `
+                        <div class="item-row">
+                            <div>
+                                <strong>${f.name}</strong> (${f.category})<br>
+                                <span style="font-size:12px; color:#666;">${f.latex || ''}</span>
+                                ${f.mathExpr ? `<br><span style="font-size:11px; color:#2e7d32; font-weight:bold;">⚡ ${f.resVar || ''} = ${f.mathExpr} [${f.unit || ''}]</span>` : ''}
+                            </div>
+                            <div>
+                                <button type="button" class="btn-action btn-edit" onclick="triggerEditFormula('${f.id}')">✏️</button>
+                                <button type="button" class="btn-action btn-delete" onclick="triggerDeleteFormula('${f.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('') || '<p style="color:#888;">Формул немає.</p>';
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function insertFormulaTag(textareaId, selectId) {
+            const fId = document.getElementById(selectId).value;
+            const textarea = document.getElementById(textareaId);
+            const tag = `\n[formula:${fId}]\n`;
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            textarea.value = textarea.value.substring(0, start) + tag + textarea.value.substring(end);
+            textarea.focus();
+        }
+
+        function insertAutoCalcTag(textareaId, selectId, inputId) {
+            const fId = document.getElementById(selectId).value;
+            const params = document.getElementById(inputId).value.trim();
+            const textarea = document.getElementById(textareaId);
+            const tag = params ? `\n[calc:${fId} | ${params}]\n` : `\n[formula:${fId}]\n`;
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            textarea.value = textarea.value.substring(0, start) + tag + textarea.value.substring(end);
+            textarea.focus();
+        }
+
+        // Вставка авто-обрахунку із зазначенням Таблиці 1 або 2!
+        function insertLabAutoCalcTag() {
+            const tbl = document.getElementById('l_calc_tbl_select').value;
+            const fId = document.getElementById('l_calc_formula_select').value;
+            const row = document.getElementById('l_calc_row').value || 1;
+            const params = document.getElementById('l_calc_params').value.trim();
+            const textarea = document.getElementById('l_theory');
+
+            const tblParam = (tbl === '2') ? `tbl=2 | ` : '';
+            const tag = params ? `\n[calc:${fId} | ${tblParam}row=${row} | ${params}]\n` : `\n[formula:${fId}]\n`;
+            
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            textarea.value = textarea.value.substring(0, start) + tag + textarea.value.substring(end);
+            textarea.focus();
+        }
+
+        function getOrderedFormulas(prefix) {
+            const selected = [];
+            allFormulas.forEach(f => {
+                const cb = document.getElementById(`${prefix}_cb_${f.id}`);
+                const ord = document.getElementById(`${prefix}_ord_${f.id}`);
+                if (cb && cb.checked) {
+                    selected.push({ id: f.id, order: parseInt(ord ? ord.value : 99) || 99 });
+                }
+            });
+            selected.sort((a, b) => a.order - b.order);
+            return selected.map(s => s.id);
+        }
+
+        function triggerEditFormula(id) {
+            const f = allFormulas.find(x => String(x.id) === String(id));
+            if (!f) return;
+            editingFormulaId = String(id);
+            document.getElementById('formulaFormHeader').textContent = `Редагування формули: ${f.name}`;
+            document.getElementById('formulaSubmitBtn').textContent = '💾 Оновити формулу';
+            document.getElementById('formulaCancelBtn').style.display = 'block';
+
+            document.getElementById('f_name').value = f.name || '';
+            document.getElementById('f_cat').value = f.category || '';
+            document.getElementById('f_latex').value = f.latex || '';
+            document.getElementById('f_sym').value = f.symbols || '';
+            document.getElementById('f_desc').value = f.description || '';
+            document.getElementById('f_res_var').value = f.resVar || '';
+            document.getElementById('f_unit').value = f.unit || '';
+            document.getElementById('f_math_expr').value = f.mathExpr || '';
+            document.getElementById('f_subst_template').value = f.substTemplate || '';
+
+            let varsString = '';
+            if (Array.isArray(f.vars)) {
+                varsString = f.vars.map(v => typeof v === 'object' ? `${v.sym || ''} = ${v.text || ''}` : String(v)).join(', ');
+            } else if (typeof f.vars === 'string') {
+                varsString = f.vars;
+            }
+            document.getElementById('f_vars').value = varsString;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function saveFormula() {
+            const rawVars = document.getElementById('f_vars').value.split(',');
+            const varsArr = rawVars.map(v => {
+                const p = v.split('=');
+                return { sym: p[0] ? p[0].trim() : '', text: p[1] ? p[1].trim() : '' };
+            }).filter(v => v.sym !== '');
+
+            const payload = {
+                name: document.getElementById('f_name').value,
+                category: document.getElementById('f_cat').value,
+                latex: document.getElementById('f_latex').value,
+                symbols: document.getElementById('f_sym').value,
+                description: document.getElementById('f_desc').value,
+                resVar: document.getElementById('f_res_var').value.trim(),
+                unit: document.getElementById('f_unit').value.trim(),
+                mathExpr: document.getElementById('f_math_expr').value.trim(),
+                substTemplate: document.getElementById('f_subst_template').value.trim(),
+                vars: varsArr
+            };
+            const url = editingFormulaId ? `/api/formulas/${editingFormulaId}` : '/api/formulas';
+            await fetch(url, { method: editingFormulaId ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            alert(editingFormulaId ? "Формулу оновлено!" : "Формулу додано!");
+            resetFormulaForm();
+            loadFormulas();
+        }
+
+        function resetFormulaForm() {
+            editingFormulaId = null;
+            document.getElementById('formulaFormHeader').textContent = 'Додати формулу в Довідник';
+            document.getElementById('formulaSubmitBtn').textContent = '💾 Зберегти формулу';
+            document.getElementById('formulaCancelBtn').style.display = 'none';
+            ['f_name', 'f_cat', 'f_latex', 'f_sym', 'f_desc', 'f_vars', 'f_res_var', 'f_unit', 'f_math_expr', 'f_subst_template'].forEach(id => document.getElementById(id).value = '');
+        }
+
+        async function triggerDeleteFormula(id) {
+            if (!confirm("Видалити формулу?")) return;
+            await fetch(`/api/formulas/${id}`, { method: 'DELETE' });
+            loadFormulas();
+        }
+
+        async function loadTasks() {
+            try {
+                const res = await fetch('/api/tasks');
+                allTasks = await res.json();
+                const list = document.getElementById('tasksList');
+                if (list) {
+                    list.innerHTML = allTasks.map(t => `
+                        <div class="item-row">
+                            <div><strong>№ ${t.number}</strong> (${t.category})<br><span style="font-size:12px; color:#666;">${t.text.substring(0, 50)}...</span></div>
+                            <div>
+                                <button type="button" class="btn-action btn-edit" onclick="startEditTask('${t.id}')">✏️</button>
+                                <button type="button" class="btn-action btn-delete" onclick="deleteTask('${t.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('') || '<p style="color:#888;">Задач немає.</p>';
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function saveTask() {
+            const payload = {
+                number: document.getElementById('t_num').value,
+                category: document.getElementById('t_cat').value,
+                text: document.getElementById('t_text').value,
+                given: document.getElementById('t_given').value,
+                si: document.getElementById('t_si').value,
+                find: document.getElementById('t_find').value,
+                formulaIds: getOrderedFormulas('t'),
+                solution: document.getElementById('t_solve').value,
+                answer: document.getElementById('t_ans').value
+            };
+            const url = editingTaskId ? `/api/tasks/${editingTaskId}` : '/api/tasks';
+            await fetch(url, { method: editingTaskId ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            alert(editingTaskId ? "Задачу оновлено!" : "Задачу збережено!");
+            resetTaskForm();
+            loadTasks();
+        }
+
+        function startEditTask(id) {
+            const t = allTasks.find(x => String(x.id) === String(id));
+            if (!t) return;
+            editingTaskId = id;
+            document.getElementById('taskFormHeader').textContent = `Редагування задачі № ${t.number}`;
+            document.getElementById('taskSubmitBtn').textContent = '💾 Оновити задачу';
+            document.getElementById('taskCancelBtn').style.display = 'block';
+
+            document.getElementById('t_num').value = t.number || '';
+            document.getElementById('t_cat').value = t.category || '';
+            document.getElementById('t_text').value = t.text || '';
+            document.getElementById('t_given').value = t.given || '';
+            document.getElementById('t_si').value = t.si || '';
+            document.getElementById('t_find').value = t.find || '';
+            document.getElementById('t_solve').value = t.solution || '';
+            document.getElementById('t_ans').value = t.answer || '';
+
+            const chosen = t.formulaIds || [];
+            allFormulas.forEach(f => {
+                const cb = document.getElementById(`t_cb_${f.id}`);
+                const ord = document.getElementById(`t_ord_${f.id}`);
+                const idx = chosen.indexOf(f.id);
+                if (cb) cb.checked = (idx !== -1);
+                if (ord && idx !== -1) ord.value = idx + 1;
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetTaskForm() {
+            editingTaskId = null;
+            document.getElementById('taskFormHeader').textContent = 'Додати задачу';
+            document.getElementById('taskSubmitBtn').textContent = '💾 Зберегти задачу';
+            document.getElementById('taskCancelBtn').style.display = 'none';
+            ['t_num', 't_cat', 't_text', 't_given', 't_si', 't_find', 't_solve', 't_ans'].forEach(id => document.getElementById(id).value = '');
+            allFormulas.forEach(f => {
+                const cb = document.getElementById(`t_cb_${f.id}`);
+                if (cb) cb.checked = false;
+            });
+        }
+
+        async function deleteTask(id) {
+            if (confirm("Видалити задачу?")) {
+                await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+                loadTasks();
+            }
+        }
+
+        // ЛАБОРАТОРНІ (З ДВОМА ТАБЛИЦЯМИ)
+        async function loadLabs() {
+            try {
+                const res = await fetch('/api/labs');
+                allLabs = await res.json();
+                const list = document.getElementById('labsList');
+                if (list) {
+                    list.innerHTML = allLabs.map(l => `
+                        <div class="item-row">
+                            <div><strong>№ ${l.number}</strong>: ${l.title} (${l.category})</div>
+                            <div>
+                                <button type="button" class="btn-action btn-edit" onclick="startEditLab('${l.id}')">✏️</button>
+                                <button type="button" class="btn-action btn-delete" onclick="deleteLab('${l.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('') || '<p style="color:#888;">Лабораторних немає.</p>';
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function saveLab() {
+            const payload = {
+                number: document.getElementById('l_num').value,
+                category: document.getElementById('l_cat').value,
+                title: document.getElementById('l_title').value,
+                goal: document.getElementById('l_goal').value,
+                equipment: document.getElementById('l_equip').value,
+                simUrl: document.getElementById('l_sim_url').value,
+                theory: document.getElementById('l_theory').value,
+                formulaIds: getOrderedFormulas('l'),
+                
+                // ТАБЛИЦЯ 1
+                tableParams: document.getElementById('l_tbl_params').value,
+                tableHeaders: document.getElementById('l_tbl_headers').value,
+                tableRowsCount: parseInt(document.getElementById('l_tbl_rows').value) || 3,
+                tableData: document.getElementById('l_tbl_data').value,
+                tableFooter: document.getElementById('l_tbl_footer').value,
+
+                // ТАБЛИЦЯ 2
+                table2Title: document.getElementById('l_tbl2_title').value,
+                table2Params: document.getElementById('l_tbl2_params').value,
+                table2Headers: document.getElementById('l_tbl2_headers').value,
+                table2RowsCount: parseInt(document.getElementById('l_tbl2_rows').value) || 3,
+                table2Data: document.getElementById('l_tbl2_data').value,
+                table2Footer: document.getElementById('l_tbl2_footer').value
+            };
+            const url = editingLabId ? `/api/labs/${editingLabId}` : '/api/labs';
+            await fetch(url, { method: editingLabId ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            alert(editingLabId ? "Лабораторну оновлено!" : "Лабораторну збережено!");
+            resetLabForm();
+            loadLabs();
+        }
+
+        function startEditLab(id) {
+            const l = allLabs.find(x => String(x.id) === String(id));
+            if (!l) return;
+            editingLabId = id;
+            document.getElementById('labFormHeader').textContent = `Редагування лаби № ${l.number}`;
+            document.getElementById('labSubmitBtn').textContent = '💾 Оновити лабораторну';
+            document.getElementById('labCancelBtn').style.display = 'block';
+
+            document.getElementById('l_num').value = l.number || '';
+            document.getElementById('l_cat').value = l.category || '';
+            document.getElementById('l_title').value = l.title || '';
+            document.getElementById('l_goal').value = l.goal || '';
+            document.getElementById('l_equip').value = l.equipment || '';
+            document.getElementById('l_sim_url').value = l.simUrl || '';
+            document.getElementById('l_theory').value = l.theory || '';
+
+            // Таблиця 1
+            document.getElementById('l_tbl_params').value = l.tableParams || '';
+            document.getElementById('l_tbl_headers').value = l.tableHeaders || '';
+            document.getElementById('l_tbl_rows').value = l.tableRowsCount || 3;
+            document.getElementById('l_tbl_data').value = l.tableData || '';
+            document.getElementById('l_tbl_footer').value = l.tableFooter || '';
+
+            // Таблиця 2
+            document.getElementById('l_tbl2_title').value = l.table2Title || '';
+            document.getElementById('l_tbl2_params').value = l.table2Params || '';
+            document.getElementById('l_tbl2_headers').value = l.table2Headers || '';
+            document.getElementById('l_tbl2_rows').value = l.table2RowsCount || 3;
+            document.getElementById('l_tbl2_data').value = l.table2Data || '';
+            document.getElementById('l_tbl2_footer').value = l.table2Footer || '';
+
+            const chosen = l.formulaIds || [];
+            allFormulas.forEach(f => {
+                const cb = document.getElementById(`l_cb_${f.id}`);
+                const ord = document.getElementById(`l_ord_${f.id}`);
+                const idx = chosen.indexOf(f.id);
+                if (cb) cb.checked = (idx !== -1);
+                if (ord && idx !== -1) ord.value = idx + 1;
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetLabForm() {
+            editingLabId = null;
+            document.getElementById('labFormHeader').textContent = 'Додати лабораторну роботу';
+            document.getElementById('labSubmitBtn').textContent = '💾 Зберегти лабораторну';
+            document.getElementById('labCancelBtn').style.display = 'none';
+
+            ['l_num', 'l_cat', 'l_title', 'l_goal', 'l_equip', 'l_sim_url', 'l_theory', 
+             'l_tbl_params', 'l_tbl_headers', 'l_tbl_data', 'l_tbl_footer',
+             'l_tbl2_title', 'l_tbl2_params', 'l_tbl2_headers', 'l_tbl2_data', 'l_tbl2_footer'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+
+            allFormulas.forEach(f => {
+                const cb = document.getElementById(`l_cb_${f.id}`);
+                if (cb) cb.checked = false;
+            });
+        }
+
+        async function deleteLab(id) {
+            if (confirm("Видалити лабораторну роботу?")) {
+                await fetch(`/api/labs/${id}`, { method: 'DELETE' });
+                loadLabs();
+            }
+        }
+
+        loadFormulas();
+        loadTasks();
+        loadLabs();
+        renderQuantitiesAdmin();
+    </script>
+</body>
+</html>
